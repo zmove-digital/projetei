@@ -228,7 +228,7 @@ button {
     display: flex;
     align-items: center;
     gap: 28px;
-    height: 76px;
+    height: 108px;
 }
 
 .brand {
@@ -239,8 +239,8 @@ button {
 }
 
 .brand-logo img {
-    width: 44px;
-    height: 44px;
+    height: 84px;
+    width: auto;
     object-fit: contain;
 }
 
@@ -787,34 +787,174 @@ button {
     margin: 0 auto;
 }
 
-.tester-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+.tester-stage {
+    user-select: none;
 }
 
-.tester-tab {
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    color: rgba(255, 255, 255, 0.75);
-    font-weight: 700;
-    font-size: 0.9rem;
-    padding: 10px 24px;
-    border-radius: 100px;
-    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+.tester-slides {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: var(--navy-2);
 }
 
-.tester-tab:hover {
+.tester-slide {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    transform: scale(1.03);
+    transition: opacity 0.45s ease, transform 0.6s ease;
+    pointer-events: none;
+}
+
+.tester-slide.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.tester-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    -webkit-user-drag: none;
+}
+
+.tester-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(14, 29, 46, 0.55);
+    backdrop-filter: blur(8px);
     color: #fff;
-    border-color: rgba(255, 255, 255, 0.4);
+    z-index: 5;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-.tester-tab.active {
-    background: var(--grad-gold);
+.tester-arrow:hover {
+    background: rgba(232, 163, 61, 0.9);
     border-color: transparent;
     color: #241503;
+}
+
+.tester-arrow svg {
+    width: 22px;
+    height: 22px;
+}
+
+.tester-arrow--prev {
+    left: 14px;
+}
+
+.tester-arrow--next {
+    right: 14px;
+}
+
+.tester-counter {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 2px;
+    background: rgba(14, 29, 46, 0.65);
+    backdrop-filter: blur(6px);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 13px;
+    border-radius: 100px;
+}
+
+.tester-counter strong {
+    color: var(--gold);
+    font-size: 0.92rem;
+}
+
+.tester-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 34px 18px 13px;
+    background: linear-gradient(to top, rgba(10, 21, 34, 0.88) 30%, transparent);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.45s ease 0.15s, transform 0.45s ease 0.15s;
+    pointer-events: none;
+}
+
+.tester-slide.active .tester-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tester-caption strong {
+    color: var(--gold);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.tester-caption span {
+    color: #fff;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.tester-thumbs {
+    display: flex;
+    gap: 10px;
+    justify-content: safe center;
+    margin-top: 16px;
+    padding-bottom: 6px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(232, 163, 61, 0.5) transparent;
+}
+
+.tester-thumb {
+    position: relative;
+    flex: 0 0 auto;
+    width: 96px;
+    aspect-ratio: 16 / 10;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    background: var(--navy-2);
+    padding: 0;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tester-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.tester-thumb:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+.tester-thumb.active {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(232, 163, 61, 0.3), 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 .tester-stage {
@@ -1600,8 +1740,8 @@ button {
 }
 
 .brand-logo--footer img {
-    width: 52px;
-    height: 52px;
+    height: 96px;
+    width: auto;
 }
 
 .footer-brand p {
@@ -1647,6 +1787,18 @@ button {
     gap: 10px;
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-credit-link {
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-credit-link:hover {
+    color: var(--gold);
 }
 
 .wa-float {
@@ -1889,6 +2041,24 @@ button {
     .footer-bottom {
         flex-direction: column;
         text-align: center;
+    }
+    .tester-arrow {
+        width: 38px;
+        height: 38px;
+    }
+    .tester-arrow svg {
+        width: 18px;
+        height: 18px;
+    }
+    .tester-thumb {
+        width: 74px;
+    }
+    .tester-caption {
+        padding: 24px 12px 9px;
+        gap: 8px;
+    }
+    .tester-caption span {
+        font-size: 0.78rem;
     }
     .hero-actions .btn {
         width: 100%;

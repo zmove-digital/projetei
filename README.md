@@ -87,4 +87,5 @@ Basta editar `index.html` (textos), `css/landing.css` (cores/estilos) e enviar u
 | Preços                   | `index.html`, seção `id="valores"`          |
 | Número do WhatsApp       | constante `WHATSAPP_NUMBER` em `js/landing.js` |
 | Cores da marca           | variáveis `--gold`, `--navy` etc. no topo de `css/landing.css` |
-| Imagens dos renders      | pasta `img/`                                |
+| Imagens dos renders      | pasta `img/` (hero e portfólio) · galeria interativa em `img/galeria/modelo-01.jpg` … `modelo-22.jpg` |
+| Legendas da galeria      | `index.html`, busque `tester-caption`: troque o texto `<span>Projeto residencial</span>` de cada modelo pelo nome certo (ex.: "Sobrado com 3 suítes") |
