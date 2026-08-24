@@ -1383,6 +1383,12 @@ button {
     color: rgba(255, 255, 255, 0.6);
 }
 
+.testimonials-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 44px;
+}
+
 .lead {
     background: var(--paper-2);
 }
