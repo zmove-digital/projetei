@@ -1838,10 +1838,11 @@ button {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 150;
+    z-index: 400;
     gap: 10px;
     padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
     background: rgba(255, 255, 255, 0.96);
+    -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     border-top: 1px solid var(--border);
     box-shadow: 0 -8px 30px rgba(14, 29, 46, 0.12);
@@ -1971,6 +1972,9 @@ button {
         padding: 10px 0;
         width: 100%;
     }
+    .nav-whatsapp {
+        margin-left: auto;
+    }
     .nav-toggle {
         display: flex;
         z-index: 120;
@@ -2001,15 +2005,15 @@ button {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-}
-
-@media (max-width: 640px) {
     body {
         padding-bottom: 74px;
     }
     .mobile-bar {
         display: flex;
     }
+}
+
+@media (max-width: 640px) {
     .wa-float {
         bottom: 88px;
         width: 54px;
