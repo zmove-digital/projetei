@@ -234,6 +234,45 @@
         });
     }
 
+    var guiaForm = document.getElementById('guiaGate');
+    if (guiaForm) {
+        var guiaInput = document.getElementById('guiaWhats');
+        guiaInput.addEventListener('input', function () {
+            var digits = guiaInput.value.replace(/\D/g, '').slice(0, 11);
+            var formatted = digits;
+            if (digits.length > 6) {
+                formatted = '(' + digits.slice(0, 2) + ') ' + digits.slice(2, 7) + '-' + digits.slice(7);
+            } else if (digits.length > 2) {
+                formatted = '(' + digits.slice(0, 2) + ') ' + digits.slice(2);
+            } else if (digits.length > 0) {
+                formatted = '(' + digits;
+            }
+            guiaInput.value = formatted;
+            guiaInput.style.borderColor = '';
+        });
+        guiaForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var digits = guiaInput.value.replace(/\D/g, '');
+            if (digits.length < 10) {
+                guiaInput.style.borderColor = '#c0392b';
+                guiaInput.focus();
+                return;
+            }
+            window.open(
+                'https://wa.me/' + WHATSAPP_NUMBER + '?text=' +
+                encodeURIComponent('Olá! Quero receber o Guia Definitivo do Financiamento Imobiliário. Meu WhatsApp: ' + digits),
+                '_blank',
+                'noopener'
+            );
+            var dl = document.createElement('a');
+            dl.href = 'materiais/guia-financiamento-imobiliario.pdf';
+            dl.download = 'guia-financiamento-imobiliario-projetei.pdf';
+            document.body.appendChild(dl);
+            dl.click();
+            dl.remove();
+        });
+    }
+
     var form = document.getElementById('leadForm');
     var success = document.getElementById('formSuccess');
 

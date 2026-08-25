@@ -1419,6 +1419,46 @@ button {
     margin-bottom: 20px;
 }
 
+.lead-gate {
+    max-width: 460px;
+}
+
+.lead-gate-field {
+    display: flex;
+    gap: 10px;
+}
+
+.lead-gate-field input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 20px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lead-gate-field input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(224, 138, 30, 0.15);
+}
+
+.lead-gate-field .btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.lead-gate-note {
+    font-size: 0.8rem;
+    margin-top: 10px;
+    color: rgba(20, 20, 20, 0.55);
+}
+
 .lead-notes {
     display: flex;
     flex-wrap: wrap;
@@ -1785,6 +1825,7 @@ button {
     line-height: 1.6;
 }
 
+
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding: 22px 0;
@@ -2021,6 +2062,13 @@ button {
 }
 
 @media (max-width: 640px) {
+    .lead-gate-field {
+        flex-direction: column;
+    }
+    .lead-gate-field .btn {
+        width: 100%;
+        justify-content: center;
+    }
     .nav-inner {
         height: 88px;
         gap: 10px;
@@ -2070,7 +2118,8 @@ button {
         grid-template-columns: 1fr;
         gap: 32px;
     }
-    .footer-bottom {
+
+.footer-bottom {
         flex-direction: column;
         text-align: center;
     }
