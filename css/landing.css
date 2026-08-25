@@ -35,6 +35,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 96px;
+    overflow-x: hidden;
 }
 
 body {
@@ -1975,6 +1976,12 @@ button {
     .nav-whatsapp {
         margin-left: auto;
     }
+    .brand-logo img {
+        height: 62px;
+    }
+    .nav-inner {
+        gap: 16px;
+    }
     .nav-toggle {
         display: flex;
         z-index: 120;
@@ -2014,6 +2021,21 @@ button {
 }
 
 @media (max-width: 640px) {
+    .nav-inner {
+        height: 88px;
+        gap: 10px;
+    }
+    .brand-logo img {
+        height: 48px;
+    }
+    .nav-whatsapp {
+        width: 38px;
+        height: 38px;
+    }
+    .nav-whatsapp svg {
+        width: 18px;
+        height: 18px;
+    }
     .wa-float {
         bottom: 88px;
         width: 54px;
