@@ -1786,7 +1786,9 @@ button {
     padding-bottom: 50px;
 }
 
+.brand-logo--footer,
 .brand-logo--footer img {
+    display: inline-block;
     height: 96px;
     width: auto;
 }
