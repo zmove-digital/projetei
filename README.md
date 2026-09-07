@@ -9,7 +9,7 @@ Landing page focada em **começar pelo anteprojeto** antes dos projetos técnico
 ├── css/landing.css     ← estilos
 ├── js/landing.js       ← interações (menu, testador de cores, FAQ, formulário)
 ├── img/                ← logo e renders
-├── materiais/          ← guia PDF + planilhas (downloads gratuitos)
+├── materiais/          ← (opcional) PDFs para downloads pela página
 ├── CNAME               ← define www.projetei.com como domínio do Pages
 └── .nojekyll           ← serve os arquivos direto, sem processamento Jekyll
 ```
@@ -72,7 +72,6 @@ Na gestão de DNS do domínio `projetei.com`, crie:
 - [ ] `https://www.projetei.com` abre com cadeado (HTTPS)
 - [ ] `https://projetei.com` (sem www) redireciona para o www
 - [ ] WhatsApp `(51) 9 8992-3636` abre ao clicar nos botões
-- [ ] Downloads do Guia e das planilhas funcionam (`/materiais/...`)
 - [ ] Testador de cores da seção "Experimente agora" funciona no celular
 - [ ] Google Search Console: solicitar reindexação do novo site
 
