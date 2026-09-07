@@ -198,18 +198,6 @@ button {
     box-shadow: 0 16px 36px rgba(37, 211, 102, 0.45);
 }
 
-.topbar {
-    background: var(--navy);
-    color: #f4e9d4;
-    text-align: center;
-    padding: 9px 16px;
-    font-size: 0.85rem;
-}
-
-.topbar strong {
-    color: var(--gold);
-}
-
 .navbar {
     position: sticky;
     top: 0;
