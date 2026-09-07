@@ -6,7 +6,7 @@
     /* Determinado com o rótulo (label) da conversão "WhatsApp - Lead".
        Crie-a em Google Ads > Metas > Conversões > Nova conversão e cole aqui
        a parte após a barra (ex.: TE0000abcd). */
-    var WHATSAPP_CONVERSION_LABEL = 'SEU_ID_DA_CONVERSAO_WHATSAPP';
+    var WHATSAPP_CONVERSION_LABEL = 'G4o9CPaY4fAcEICukrhE';
     var STORAGE_KEY = 'projetei_utm';
 
     var getStoredUtm = function () {
@@ -313,8 +313,8 @@
             form.style.display = 'none';
             success.hidden = false;
 
-            fbq('track', 'Lead');
-            gtag('event', 'conversion', { 'send_to': 'AW-18371352320/GT-TNHW6WSW' });
+            fbq('track', 'Lead', { content_name: 'Formulário', value: 1.0, currency: 'BRL' });
+            gtag('event', 'conversion', { 'send_to': 'AW-18371352320/GT-TNHW6WSW', 'value': 1.0, 'currency': 'BRL' });
             window.open(
                 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message + sourceLine()),
                 '_blank',
@@ -341,7 +341,7 @@
         e.preventDefault();
 
         if (typeof fbq === 'function') {
-            fbq('track', 'Contact', { content_name: 'WhatsApp' });
+            fbq('track', 'Contact', { content_name: 'WhatsApp', value: 1.0, currency: 'BRL' });
         }
 
         var opened = false;
@@ -354,6 +354,8 @@
         if (typeof gtag === 'function') {
             gtag('event', 'conversion', {
                 'send_to': 'AW-18371352320/' + WHATSAPP_CONVERSION_LABEL,
+                'value': 1.0,
+                'currency': 'BRL',
                 'event_callback': openWa
             });
         } else {
