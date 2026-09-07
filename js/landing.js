@@ -2,6 +2,49 @@
     'use strict';
 
     var WHATSAPP_NUMBER = '5551989923636';
+
+    /* Determinado com o rótulo (label) da conversão "WhatsApp - Lead".
+       Crie-a em Google Ads > Metas > Conversões > Nova conversão e cole aqui
+       a parte após a barra (ex.: TE0000abcd). */
+    var WHATSAPP_CONVERSION_LABEL = 'SEU_ID_DA_CONVERSAO_WHATSAPP';
+    var STORAGE_KEY = 'projetei_utm';
+
+    var getStoredUtm = function () {
+        try {
+            var raw = window.localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+    };
+
+    var captureUtm = function () {
+        try {
+            var q = window.location.search || '';
+            if (!q || !window.localStorage) return;
+            var params = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
+            var found = {};
+            var any = false;
+            params.forEach(function (p) {
+                var m = new RegExp('[?&]' + p + '=([^&]+)').exec(q);
+                if (m && m[1]) { found[p] = decodeURIComponent(m[1].replace(/\+/g, ' ')); any = true; }
+            });
+            if (any) window.localStorage.setItem(STORAGE_KEY, JSON.stringify(found));
+        } catch (e) {}
+    };
+
+    var sourceLine = function () {
+        var u = getStoredUtm();
+        if (!u) return '';
+        var parts = [];
+        if (u.utm_medium) parts.push(u.utm_medium);
+        if (u.utm_source) parts.push(u.utm_source);
+        if (u.utm_campaign) parts.push(u.utm_campaign);
+        if (!parts.length && (u.gclid || u.fbclid)) parts.push('anúncio online');
+        if (!parts.length) return '';
+        return '\n[Origem: ' + parts.join(' / ') + ']';
+    };
+
+    captureUtm();
+
     var yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
@@ -273,10 +316,49 @@
             fbq('track', 'Lead');
             gtag('event', 'conversion', { 'send_to': 'AW-18371352320/GT-TNHW6WSW' });
             window.open(
-                'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message),
+                'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message + sourceLine()),
                 '_blank',
                 'noopener'
             );
         });
     }
+
+    /* Cliques diretos em qualquer link wa.me: registro de intenção de contato
+       via WhatsApp (Meta Contact + conversão própria no Google Ads), com
+       abertura do link garantida mesmo se o envio do evento travar a página. */
+    document.addEventListener('click', function (e) {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        var link = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"]') : null;
+        if (!link) return;
+
+        var href = link.getAttribute('href') || '';
+        var src = sourceLine();
+        if (src) {
+            var hasText = href.indexOf('?text=') !== -1;
+            href += (hasText ? '' : '?text=') + encodeURIComponent(hasText ? src : src.replace(/^\n/, ''));
+        }
+
+        e.preventDefault();
+
+        if (typeof fbq === 'function') {
+            fbq('track', 'Contact', { content_name: 'WhatsApp' });
+        }
+
+        var opened = false;
+        var openWa = function () {
+            if (opened) return;
+            opened = true;
+            window.open(href, '_blank', 'noopener');
+        };
+
+        if (typeof gtag === 'function') {
+            gtag('event', 'conversion', {
+                'send_to': 'AW-18371352320/' + WHATSAPP_CONVERSION_LABEL,
+                'event_callback': openWa
+            });
+        } else {
+            openWa();
+        }
+        setTimeout(openWa, 800);
+    });
 })();
