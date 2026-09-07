@@ -259,7 +259,7 @@
                 return;
             }
             fbq('track', 'Lead', { content_name: 'Guia Financiamento' });
-            gtag('event', 'conversion', { 'send_to': 'AW-18371352320/OUTRO_LABEL_AQUI' });
+            gtag('event', 'conversion', { 'send_to': 'AW-18371352320/GT-TNHW6WSW' });
             window.open(
                 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' +
                 encodeURIComponent('Olá! Quero receber o Guia Definitivo do Financiamento Imobiliário. Meu WhatsApp: ' + digits),
@@ -312,7 +312,7 @@
             success.hidden = false;
 
             fbq('track', 'Lead');
-            gtag('event', 'conversion', { 'send_to': 'AW-18371352320/SEU_LABEL_AQUI' });
+            gtag('event', 'conversion', { 'send_to': 'AW-18371352320/GT-TNHW6WSW' });
             window.open(
                 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message),
                 '_blank',
