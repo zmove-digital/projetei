@@ -1150,7 +1150,7 @@ button {
     grid-template-columns: 1fr 1fr;
     gap: 28px;
     max-width: 940px;
-    margin: 0 auto 40px;
+    margin: 0 auto;
     align-items: stretch;
 }
 
@@ -1269,8 +1269,8 @@ button {
     display: flex;
     align-items: center;
     gap: 20px;
-    max-width: 820px;
-    margin: 0 auto;
+    max-width: 940px;
+    margin: 48px auto 24px;
     background: linear-gradient(135deg, rgba(30, 176, 99, 0.1) 0%, rgba(232, 163, 61, 0.08) 100%);
     border: 1px solid rgba(30, 176, 99, 0.35);
     border-radius: var(--radius-lg);
@@ -1304,10 +1304,14 @@ button {
 }
 
 .faq-list {
-    max-width: 820px;
+    max-width: 940px;
     margin: 0 auto;
     display: grid;
     gap: 14px;
+}
+
+.faq {
+    padding-top: 48px;
 }
 
 .faq-item {
@@ -1773,6 +1777,13 @@ button {
         bottom: 88px;
         width: 54px;
         height: 54px;
+    }
+    .guarantee {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        margin: 40px auto 20px;
+        padding: 24px 22px;
     }
     .hero {
         padding: 56px 0 72px;
