@@ -1265,44 +1265,6 @@ button {
     border-radius: 50%;
 }
 
-.guarantee {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    max-width: 940px;
-    margin: 48px auto 24px;
-    background: linear-gradient(135deg, rgba(30, 176, 99, 0.1) 0%, rgba(232, 163, 61, 0.08) 100%);
-    border: 1px solid rgba(30, 176, 99, 0.35);
-    border-radius: var(--radius-lg);
-    padding: 26px 32px;
-}
-
-.guarantee-icon {
-    display: grid;
-    place-items: center;
-    min-width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    background: rgba(30, 176, 99, 0.15);
-    color: var(--green-dark);
-}
-
-.guarantee-icon svg {
-    width: 28px;
-    height: 28px;
-}
-
-.guarantee strong {
-    display: block;
-    font-size: 1.05rem;
-    margin-bottom: 4px;
-}
-
-.guarantee span:not(.guarantee-icon) {
-    font-size: 0.93rem;
-    color: var(--slate);
-}
-
 .faq-list {
     max-width: 940px;
     margin: 0 auto;
@@ -1312,6 +1274,10 @@ button {
 
 .faq {
     padding-top: 48px;
+}
+
+.pricing {
+    padding-bottom: 64px;
 }
 
 .faq-item {
@@ -1777,13 +1743,6 @@ button {
         bottom: 88px;
         width: 54px;
         height: 54px;
-    }
-    .guarantee {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-        margin: 40px auto 20px;
-        padding: 24px 22px;
     }
     .hero {
         padding: 56px 0 72px;
