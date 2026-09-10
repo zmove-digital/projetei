@@ -212,6 +212,66 @@
         }
     });
 
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var lightboxCaption = document.getElementById('lightboxCaption');
+    var lightboxPrev = document.getElementById('lightboxPrev');
+    var lightboxNext = document.getElementById('lightboxNext');
+    var lightboxClose = document.getElementById('lightboxClose');
+
+    var openLightbox = function (idx) {
+        if (!lightbox || !testerSlides.length) return;
+        goSlide(idx);
+        var slide = testerSlides[testerIdx];
+        var img = slide.querySelector('img');
+        var cap = slide.querySelector('.tester-caption');
+        lightboxImg.src = img.getAttribute('src');
+        lightboxImg.alt = img.alt || '';
+        lightboxCaption.innerHTML = cap ? cap.innerHTML : '';
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    };
+
+    var closeLightbox = function () {
+        if (!lightbox) return;
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+
+    if (testerStage) {
+        testerStage.addEventListener('click', function (e) {
+            if (e.target.closest('.tester-arrow')) return;
+            openLightbox(testerIdx);
+        });
+    }
+
+    if (lightboxPrev) lightboxPrev.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openLightbox(testerIdx - 1);
+    });
+    if (lightboxNext) lightboxNext.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openLightbox(testerIdx + 1);
+    });
+    if (lightboxClose) lightboxClose.addEventListener('click', function (e) {
+        e.stopPropagation();
+        closeLightbox();
+    });
+    if (lightbox) {
+        lightbox.addEventListener('click', function (e) {
+            if (e.target === lightbox) closeLightbox();
+        });
+    }
+
+    document.addEventListener('keydown', function (e) {
+        if (!lightbox || !lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') { closeLightbox(); return; }
+        if (e.key === 'ArrowLeft') { openLightbox(testerIdx - 1); return; }
+        if (e.key === 'ArrowRight') { openLightbox(testerIdx + 1); }
+    });
+
     var selections = {};
 
     document.querySelectorAll('.tester-group').forEach(function (group) {
