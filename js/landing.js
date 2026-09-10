@@ -214,7 +214,6 @@
 
     var lightbox = document.getElementById('lightbox');
     var lightboxImg = document.getElementById('lightboxImg');
-    var lightboxCaption = document.getElementById('lightboxCaption');
     var lightboxPrev = document.getElementById('lightboxPrev');
     var lightboxNext = document.getElementById('lightboxNext');
     var lightboxClose = document.getElementById('lightboxClose');
@@ -224,10 +223,8 @@
         goSlide(idx);
         var slide = testerSlides[testerIdx];
         var img = slide.querySelector('img');
-        var cap = slide.querySelector('.tester-caption');
         lightboxImg.src = img.getAttribute('src');
         lightboxImg.alt = img.alt || '';
-        lightboxCaption.innerHTML = cap ? cap.innerHTML : '';
         lightbox.classList.add('open');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';

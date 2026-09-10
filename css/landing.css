@@ -1842,19 +1842,6 @@ button {
     -webkit-user-drag: none;
 }
 
-.lightbox-caption {
-    margin-top: 16px;
-    color: rgba(244, 233, 212, 0.85);
-    font-size: 0.95rem;
-    text-align: center;
-}
-
-.lightbox-caption strong {
-    color: var(--gold);
-    font-weight: 800;
-    margin-right: 8px;
-}
-
 .lightbox-close {
     position: absolute;
     top: 20px;
@@ -1936,8 +1923,5 @@ button {
         right: 14px;
         width: 40px;
         height: 40px;
-    }
-    .lightbox-caption {
-        font-size: 0.85rem;
     }
 }
