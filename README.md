@@ -1,14 +1,21 @@
-# projetei.com — Landing Page (GitHub Pages)
+# projetei.com — Site (GitHub Pages)
 
-Landing page focada em **começar pelo anteprojeto** antes dos projetos técnicos. Site 100% estático (HTML + CSS + JS puro, sem dependências), pronto para hospedar no **GitHub Pages** com o domínio próprio **www.projetei.com**.
+Site estático multi-página (HTML + CSS + JS puro, sem dependências), pronto para hospedar no **GitHub Pages** com o domínio próprio **www.projetei.com**. Foco em **arquitetura e construção em Porto Alegre**: começar pelo anteprojeto 3D antes dos projetos técnicos, com construção civil executada pelo próprio escritório.
 
 ## Estrutura
 
 ```
-├── index.html          ← página única (landing)
-├── css/landing.css     ← estilos
-├── js/landing.js       ← interações (menu, testador de cores, FAQ, formulário)
-├── img/                ← logo e renders
+├── index.html          ← home (landing de conversão + galeria)
+├── sobre.html          ← escritório, equipe e tese
+├── servicos.html       ← anteprojeto 3D, projetos técnicos, construção, regularização
+├── projetos.html       ← portfólio com os 31 modelos (galeria + lightbox)
+├── como-funciona.html  ← processo em 7 etapas
+├── contato.html        ← formulário de orçamento
+├── sitemap.xml         ← lista de URLs para o Google
+├── robots.txt          ← libera indexação + aponta o sitemap
+├── css/landing.css     ← estilos (home + páginas internas)
+├── js/landing.js       ← interações (menu, galeria, lightbox, FAQ, formulário, tracking)
+├── img/                ← logo, renders e favicon
 ├── materiais/          ← (opcional) PDFs para downloads pela página
 ├── CNAME               ← define www.projetei.com como domínio do Pages
 └── .nojekyll           ← serve os arquivos direto, sem processamento Jekyll
@@ -73,11 +80,13 @@ Na gestão de DNS do domínio `projetei.com`, crie:
 - [ ] `https://projetei.com` (sem www) redireciona para o www
 - [ ] WhatsApp `(51) 9 8992-3636` abre ao clicar nos botões
 - [ ] Testador de cores da seção "Experimente agora" funciona no celular
-- [ ] Google Search Console: solicitar reindexação do novo site
+- [ ] Galeria: clicar na imagem abre o lightbox, setas/ESC navegam e fecham
+- [ ] Páginas internas (`sobre.html`, `servicos.html`, `projetos.html`, `como-funciona.html`, `contato.html`) abrem e com menu/footer funcionando
+- [ ] Google Search Console: enviar `sitemap.xml` e solicitar reindexação do site novo
 
 ## Atualizar conteúdo no futuro
 
-Basta editar `index.html` (textos), `css/landing.css` (cores/estilos) e enviar um novo commit — o Pages publica sozinho em ~1 minuto.
+Basta editar os `.html` (textos), `css/landing.css` (cores/estilos) e enviar um novo commit — o Pages publica sozinho em ~1 minuto. Ao mudar CSS/JS, incremente o `?v=` dos links nas páginas para forçar refresh do cache.
 
 ## Personalizações rápidas
 
@@ -86,5 +95,5 @@ Basta editar `index.html` (textos), `css/landing.css` (cores/estilos) e enviar u
 | Preços                   | `index.html`, seção `id="valores"`          |
 | Número do WhatsApp       | constante `WHATSAPP_NUMBER` em `js/landing.js` |
 | Cores da marca           | variáveis `--gold`, `--navy` etc. no topo de `css/landing.css` |
-| Imagens dos renders      | pasta `img/` (hero e portfólio) · galeria interativa em `img/galeria/modelo-01.jpg` … `modelo-22.jpg` |
-| Legendas da galeria      | `index.html`, busque `tester-caption`: troque o texto `<span>Projeto residencial</span>` de cada modelo pelo nome certo (ex.: "Sobrado com 3 suítes") |
+| Imagens dos renders      | pasta `img/` (hero e portfólio) · galeria interativa em `img/galeria/modelo-01.jpg` … `modelo-31.jpg` |
+| Legendas da galeria      | `index.html` e `projetos.html`, busque `tester-caption`: troque o texto `<span>Projeto residencial</span>` de cada modelo pelo nome certo (ex.: "Sobrado com 3 suítes") |
