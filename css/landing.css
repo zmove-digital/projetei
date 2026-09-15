@@ -2330,6 +2330,29 @@ button {
     margin: 0;
 }
 
+.mst-facts {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+}
+
+.mst-facts li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.4;
+}
+
+.mst-facts .mst-check {
+    color: var(--gold);
+    flex: 0 0 auto;
+    font-weight: 700;
+}
+
 .mst-note {
     margin: 36px auto 0;
     max-width: 720px;
