@@ -269,55 +269,6 @@
         if (e.key === 'ArrowRight') { openLightbox(testerIdx + 1); }
     });
 
-    var selections = {};
-
-    document.querySelectorAll('.tester-group').forEach(function (group) {
-        var cat = group.getAttribute('data-cat');
-        group.querySelectorAll('.swatch').forEach(function (swatch) {
-            swatch.addEventListener('click', function () {
-                var color = swatch.style.getPropertyValue('--sw');
-                var wasActive = swatch.classList.contains('active');
-
-                group.querySelectorAll('.swatch').forEach(function (s) {
-                    s.classList.remove('active');
-                    s.setAttribute('aria-pressed', 'false');
-                });
-
-                var tint = testerStage.querySelector('.tester-tint[data-cat="' + cat + '"]');
-
-                if (wasActive || !color) {
-                    delete selections[cat];
-                    if (tint) tint.classList.remove('on');
-                    return;
-                }
-
-                swatch.classList.add('active');
-                swatch.setAttribute('aria-pressed', 'true');
-                selections[cat] = color;
-
-                if (tint) {
-                    tint.style.background = color;
-                    tint.classList.add('on');
-                }
-            });
-            swatch.setAttribute('aria-pressed', 'false');
-        });
-    });
-
-    var resetBtn = document.getElementById('testerReset');
-    if (resetBtn) {
-        resetBtn.addEventListener('click', function () {
-            selections = {};
-            document.querySelectorAll('.swatch.active').forEach(function (s) {
-                s.classList.remove('active');
-                s.setAttribute('aria-pressed', 'false');
-            });
-            document.querySelectorAll('.tester-tint.on').forEach(function (t) {
-                t.classList.remove('on');
-            });
-        });
-    }
-
     var phoneInput = document.getElementById('whatsapp');
     if (phoneInput) {
         phoneInput.addEventListener('input', function () {
@@ -419,5 +370,65 @@
             openWa();
         }
         setTimeout(openWa, 800);
+    });
+})();
+
+/* ---------- Lightbox do catálogo (catalogo.html) ---------- */
+(function () {
+    var grid = document.getElementById('mstGrid');
+    if (!grid) return;
+    var lb = document.getElementById('mstLightbox');
+    var img = document.getElementById('mstLbImg');
+    var cta = document.getElementById('mstLbCta');
+    var btnClose = document.getElementById('mstLbClose');
+    var btnPrev = document.getElementById('mstLbPrev');
+    var btnNext = document.getElementById('mstLbNext');
+    if (!lb || !img || !cta) return;
+
+    var SHOTS = [' (11)', ' (12)', ' (13)', ' (14)', ' (15)', ' (16)', ' (17)'];
+    var curProject = '';
+    var cur = 0;
+
+    function labelOf(p) {
+        var s = p.split('_').pop() || p;
+        return s.charAt(0) + s.slice(1).toLowerCase();
+    }
+
+    function showAt(i) {
+        cur = (i + SHOTS.length) % SHOTS.length;
+        img.src = 'img/catalogo/' + curProject + SHOTS[cur] + '.webp';
+        img.alt = 'Projeto ' + labelOf(curProject) + ' — render do catálogo projetei.com';
+    }
+
+    function open(p) {
+        curProject = p;
+        showAt(0);
+        cta.setAttribute('href', 'https://wa.me/5551989923636?text=' + encodeURIComponent('Oi! Quero o projeto ' + labelOf(p) + ' do catálogo da projetei.com (R$ 290).'));
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        cta.focus();
+    }
+
+    function close() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+    }
+
+    grid.addEventListener('click', function (e) {
+        var cover = e.target && e.target.closest ? e.target.closest('.mst-cover') : null;
+        if (!cover) return;
+        open(cover.getAttribute('data-project'));
+    });
+    btnClose.addEventListener('click', close);
+    btnPrev.addEventListener('click', function () { showAt(cur - 1); });
+    btnNext.addEventListener('click', function () { showAt(cur + 1); });
+    lb.addEventListener('click', function (e) {
+        if (e.target === lb) close();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        else if (e.key === 'ArrowLeft') showAt(cur - 1);
+        else if (e.key === 'ArrowRight') showAt(cur + 1);
     });
 })();
