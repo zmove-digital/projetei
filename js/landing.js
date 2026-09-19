@@ -385,9 +385,14 @@
     var btnNext = document.getElementById('mstLbNext');
     if (!lb || !img || !cta) return;
 
-    var SHOTS = [' (11)', ' (12)', ' (13)', ' (14)', ' (15)', ' (16)', ' (17)'];
+    var SHOT_BASE = 11;
+    var SHOT_COUNTS = { PROJ_F_BORGES: 10 };
     var curProject = '';
     var cur = 0;
+
+    function shotsFor(p) {
+        return SHOT_COUNTS[p] || 7;
+    }
 
     function labelOf(p) {
         var s = p.split('_').pop() || p;
@@ -395,8 +400,8 @@
     }
 
     function showAt(i) {
-        cur = (i + SHOTS.length) % SHOTS.length;
-        img.src = 'img/catalogo/' + curProject + SHOTS[cur] + '.webp';
+        cur = (i + shotsFor(curProject)) % shotsFor(curProject);
+        img.src = 'img/catalogo/' + curProject + ' (' + (SHOT_BASE + cur) + ').webp';
         img.alt = 'Projeto ' + labelOf(curProject) + ' — render do catálogo projetei.com';
     }
 
