@@ -386,7 +386,7 @@
     if (!lb || !img || !cta) return;
 
     var SHOT_BASE = 11;
-    var SHOT_COUNTS = { PROJ_F_BORGES: 10 };
+    var SHOT_COUNTS = { PROJ_F_BORGES: 10, PROJ_F_FLORES: 9 };
     var curProject = '';
     var cur = 0;
 
@@ -435,5 +435,24 @@
         if (e.key === 'Escape') close();
         else if (e.key === 'ArrowLeft') showAt(cur - 1);
         else if (e.key === 'ArrowRight') showAt(cur + 1);
+    });
+})();
+
+/* ---------- Guia de financiamento: rastreamento interno de downloads ----------
+   Clique dispara uma conversão real no Google Ads (ação "Download — Guia de
+   financiamento") e um evento no Meta Pixel, então o número exato de downloads
+   fica disponível nos painéis do Google Ads e do Gerenciador de Anúncios para
+   seu controle interno. Não há contador público na página. */
+(function () {
+    var btn = document.getElementById('guiaDownloadBtn');
+    if (!btn) return;
+
+    btn.addEventListener('click', function () {
+        if (typeof fbq === 'function') {
+            fbq('trackCustom', 'DownloadGuiaFinanciamento', { content_name: 'Guia de financiamento imobiliário' });
+        }
+        if (typeof gtag === 'function') {
+            gtag('event', 'conversion', { 'send_to': 'AW-18371352320/2A3WCO30hv8cEICukrhE', 'value': 1.0, 'currency': 'BRL' });
+        }
     });
 })();

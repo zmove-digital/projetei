@@ -2243,6 +2243,65 @@ button {
     height: 18px;
 }
 
+.lead-magnet {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 55%, var(--navy-3) 100%);
+    padding: 54px 0;
+    border-top: 2px solid rgba(232, 163, 61, 0.55);
+}
+
+.lead-magnet-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.lead-magnet-copy h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #fff;
+    font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+    line-height: 1.2;
+    margin: 0 0 10px;
+}
+
+.lead-magnet-copy h2 em {
+    color: var(--gold);
+    font-style: normal;
+}
+
+.lead-magnet-copy p {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.98rem;
+    margin: 0 0 14px;
+    max-width: 560px;
+}
+
+.lead-magnet-btn {
+    flex-shrink: 0;
+}
+
+.lead-magnet-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+@media (max-width: 720px) {
+    .lead-magnet {
+        padding: 42px 0;
+        text-align: center;
+    }
+    .lead-magnet-inner {
+        justify-content: center;
+    }
+    .lead-magnet-copy p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 @media (max-width: 720px) {
     .showcase-cta {
         padding: 42px 0;
