@@ -386,7 +386,7 @@
     if (!lb || !img || !cta) return;
 
     var SHOT_BASE = 11;
-    var SHOT_COUNTS = { PROJ_F_BORGES: 10, PROJ_F_FLORES: 9, PROJ_F_PIRES: 7 };
+    var SHOT_COUNTS = { PROJ_F_BORGES: 10, PROJ_F_FLORES: 9, PROJ_F_PIRES: 7, PROJ_F_GARCIA: 7 };
     var curProject = '';
     var cur = 0;
 
