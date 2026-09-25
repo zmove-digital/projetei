@@ -1265,6 +1265,27 @@ button {
     transform: scale(1.02);
 }
 
+.pricing-grid--single {
+    grid-template-columns: 1fr;
+    max-width: 760px;
+}
+
+.pricing-grid--single .price-card--featured {
+    transform: none;
+}
+
+.pricing-grid--single .price-value {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.pricing-grid--single .price-note {
+    flex-basis: 100%;
+    margin-top: 0;
+}
+
 .price-flag {
     position: absolute;
     top: -16px;
