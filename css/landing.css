@@ -2218,6 +2218,10 @@ button {
     margin-top: 56px;
 }
 
+.page-cta .btn + .btn {
+    margin-top: 14px;
+}
+
 .steps-list {
     display: grid;
     gap: 18px;
