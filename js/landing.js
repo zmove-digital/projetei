@@ -387,6 +387,8 @@
 
     var SHOT_BASE = 11;
     var SHOT_COUNTS = { PROJ_F_BORGES: 10, PROJ_F_FLORES: 9, PROJ_F_PIRES: 7, PROJ_F_GARCIA: 7 };
+    var EN = (document.documentElement.getAttribute('lang') || '').toLowerCase() === 'en';
+    var BASE = EN ? '../' : '';
     var curProject = '';
     var cur = 0;
 
@@ -401,14 +403,15 @@
 
     function showAt(i) {
         cur = (i + shotsFor(curProject)) % shotsFor(curProject);
-        img.src = 'img/catalogo/' + curProject + ' (' + (SHOT_BASE + cur) + ').webp';
-        img.alt = 'Projeto ' + labelOf(curProject) + ' — render do catálogo projetei.com';
+        img.src = BASE + 'img/catalogo/' + curProject + ' (' + (SHOT_BASE + cur) + ').webp';
+        img.alt = EN ? ('Project ' + labelOf(curProject) + ' — catalog render by projetei.com') : ('Projeto ' + labelOf(curProject) + ' — render do catálogo projetei.com');
     }
 
     function open(p) {
         curProject = p;
         showAt(0);
-        cta.setAttribute('href', 'https://wa.me/5551989923636?text=' + encodeURIComponent('Oi! Quero o projeto ' + labelOf(p) + ' do catálogo da projetei.com (R$ 290).'));
+        var msg = EN ? ('Hello! I want the ' + labelOf(p) + ' project from the projetei.com catalog (US$ 130).') : ('Oi! Quero o projeto ' + labelOf(p) + ' do catálogo da projetei.com (R$ 290).');
+        cta.setAttribute('href', 'https://wa.me/5551989923636?text=' + encodeURIComponent(msg));
         lb.classList.add('open');
         lb.setAttribute('aria-hidden', 'false');
         cta.focus();
