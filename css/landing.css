@@ -344,6 +344,61 @@ button {
     padding: 84px 0 96px;
 }
 
+.hero-cover {
+    padding: 150px 0 132px;
+    color: var(--paper);
+}
+
+.hero-cover .hero-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+}
+
+.hero-cover .hero-bg-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(9, 22, 37, 0.86) 0%, rgba(9, 22, 37, 0.52) 46%, rgba(9, 22, 37, 0.12) 100%);
+}
+
+.hero-cover .hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 58%, var(--paper) 100%);
+}
+
+.hero-cover .hero-inner {
+    grid-template-columns: 1fr;
+    max-width: 760px;
+}
+
+.hero-cover h1 {
+    color: var(--paper);
+    text-shadow: 0 3px 22px rgba(9, 22, 37, 0.6);
+}
+
+.hero-cover .hero-sub {
+    color: rgba(246, 243, 236, 0.86);
+}
+
+.hero-cover .hero-sub strong {
+    color: #fff;
+}
+
+.hero-cover .hero-trust li {
+    color: rgba(246, 243, 236, 0.92);
+}
+
+@media (max-width: 720px) {
+    .hero-cover {
+        padding: 118px 0 110px;
+    }
+}
+
 .hero-bg {
     position: absolute;
     inset: 0;
