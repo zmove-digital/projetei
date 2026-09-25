@@ -1437,6 +1437,7 @@ button {
 .contact-assurances {
     display: grid;
     gap: 18px;
+    margin-top: 26px;
     margin-bottom: 30px;
 }
 
