@@ -393,6 +393,13 @@ button {
     color: rgba(246, 243, 236, 0.92);
 }
 
+.hero-cover .hero-copy > p {
+    max-width: 620px;
+    color: rgba(246, 243, 236, 0.86);
+    margin-top: 18px;
+    font-size: 1.05rem;
+}
+
 @media (max-width: 720px) {
     .hero-cover {
         padding: 118px 0 110px;
