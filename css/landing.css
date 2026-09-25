@@ -281,6 +281,28 @@ button {
     box-shadow: 0 10px 24px rgba(224, 138, 30, 0.42);
 }
 
+.lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 9px 13px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.lang-toggle:hover {
+    border-color: var(--gold-2);
+    color: var(--gold-2);
+}
+
 .nav-whatsapp {
     display: inline-flex;
     align-items: center;

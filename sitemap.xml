@@ -7,4 +7,11 @@
   <url><loc>https://www.projetei.com/catalogo.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.projetei.com/como-funciona.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.projetei.com/contato.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.projetei.com/en/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.projetei.com/en/about.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.projetei.com/en/services.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.projetei.com/en/projects.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.projetei.com/en/catalog.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.projetei.com/en/how-it-works.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.projetei.com/en/contact.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>
