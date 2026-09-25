@@ -285,6 +285,7 @@ button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     flex-shrink: 0;
     font-weight: 800;
     font-size: 0.72rem;
@@ -296,6 +297,11 @@ button {
     border-radius: 100px;
     padding: 9px 13px;
     transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.lang-toggle svg {
+    flex-shrink: 0;
+    border-radius: 2px;
 }
 
 .lang-toggle:hover {
