@@ -410,7 +410,7 @@
     function open(p) {
         curProject = p;
         showAt(0);
-        var msg = EN ? ('Hello! I want the ' + labelOf(p) + ' project from the projetei.com catalog (US$ 130).') : ('Oi! Quero o projeto ' + labelOf(p) + ' do catálogo da projetei.com (R$ 290).');
+        var msg = EN ? ('Hello! I want the ' + labelOf(p) + ' project from the projetei.com catalog (AU$ 130).') : ('Oi! Quero o projeto ' + labelOf(p) + ' do catálogo da projetei.com (R$ 290).');
         cta.setAttribute('href', 'https://wa.me/5551989923636?text=' + encodeURIComponent(msg));
         lb.classList.add('open');
         lb.setAttribute('aria-hidden', 'false');
