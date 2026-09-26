@@ -289,6 +289,8 @@
     var success = document.getElementById('formSuccess');
 
     if (form) {
+        var EN_FORM = (document.documentElement.getAttribute('lang') || '').toLowerCase() === 'en';
+
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -310,24 +312,41 @@
             if (!valid) return;
 
             var digits = whatsapp.value.replace(/\D/g, '');
-            var message =
-                'Olá! Me chamo ' + nome.value.trim() +
-                ' e quero começar pelo anteprojeto para ver minha casa em 3D.\n' +
-                'Interesse: ' + tipo.value + '\n' +
-                'E-mail: ' + email.value.trim() + '\n' +
-                'WhatsApp: ' + digits +
-                '\n\nPodemos conversar?';
+            var message;
+            if (EN_FORM) {
+                message = 'Hello! My name is ' + nome.value.trim() +
+                    ', and I would like a 3D concept to see my home in 3D.\n' +
+                    'Interest: ' + tipo.value + '\n' +
+                    'Email: ' + email.value.trim() + '\n' +
+                    'Phone: ' + digits;
+            } else {
+                message =
+                    'Olá! Me chamo ' + nome.value.trim() +
+                    ' e quero começar pelo anteprojeto para ver minha casa em 3D.\n' +
+                    'Interesse: ' + tipo.value + '\n' +
+                    'E-mail: ' + email.value.trim() + '\n' +
+                    'WhatsApp: ' + digits +
+                    '\n\nPodemos conversar?';
+            }
 
             form.style.display = 'none';
             success.hidden = false;
 
             fbq('track', 'Lead', { content_name: 'Formulário', value: 1.0, currency: 'BRL' });
             gtag('event', 'conversion', { 'send_to': 'AW-18371352320/GT-TNHW6WSW', 'value': 1.0, 'currency': 'BRL' });
-            window.open(
-                'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message + sourceLine()),
-                '_blank',
-                'noopener'
-            );
+
+            if (EN_FORM) {
+                window.location.href =
+                    'mailto:contato@projetei.com?subject=' +
+                    encodeURIComponent('Quote request from ' + nome.value.trim()) +
+                    '&body=' + encodeURIComponent(message);
+            } else {
+                window.open(
+                    'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message + sourceLine()),
+                    '_blank',
+                    'noopener'
+                );
+            }
         });
     }
 
@@ -411,7 +430,15 @@
         curProject = p;
         showAt(0);
         var msg = EN ? ('Hello! I want the ' + labelOf(p) + ' project from the projetei.com catalog (AU$ 130).') : ('Oi! Quero o projeto ' + labelOf(p) + ' do catálogo da projetei.com (R$ 290).');
-        cta.setAttribute('href', 'https://wa.me/5551989923636?text=' + encodeURIComponent(msg));
+        var href;
+        if (EN) {
+            href = 'mailto:contato@projetei.com?subject=' +
+                encodeURIComponent('I want the ' + labelOf(p) + ' project from the catalog') +
+                '&body=' + encodeURIComponent(msg);
+        } else {
+            href = 'https://wa.me/5551989923636?text=' + encodeURIComponent(msg);
+        }
+        cta.setAttribute('href', href);
         lb.classList.add('open');
         lb.setAttribute('aria-hidden', 'false');
         cta.focus();
