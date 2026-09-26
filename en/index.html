@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="preload" as="image" href="../img/anteprojeto-garcia.webp" fetchpriority="high">
-    <link rel="stylesheet" href="../css/landing.css?v=20261004">
+    <link rel="stylesheet" href="../css/landing.css?v=20261005">
     <title>3D Concept in 48h — Photorealistic Renders | projetei.com</title>
     <meta name="description" content="Photorealistic 3D design studio in Porto Alegre, Brazil: concept within 48h and a pre-designed concept catalog. See your home finished and every material priced — 380+ projects delivered.">
     <meta property="og:title" content="See your home finished in 3D before deciding | projetei.com">
@@ -358,15 +358,19 @@
             </div>
 
             <div class="contact-form-wrap reveal">
-                <form id="leadForm" class="contact-form" novalidate>
+                <form id="leadForm" class="contact-form" action="https://formsubmit.co/contato@projetei.com" method="POST" novalidate>
+                    <input type="hidden" name="_subject" value="Proposta solicitada no site projetei.com (EN)">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
                     <h3>Get your free quote</h3>
                     <div class="form-group">
                         <label for="nome">Name</label>
-                        <input type="text" id="nome" name="nome" placeholder="What should we call you?" required>
+                        <input type="text" id="nome" name="name" placeholder="What should we call you?" required>
                     </div>
                     <div class="form-group">
                         <label for="whatsapp">WhatsApp</label>
-                        <input type="tel" id="whatsapp" name="whatsapp" placeholder="(51) 99999-9999" required>
+                        <input type="tel" id="whatsapp" name="phone" placeholder="(51) 99999-9999" required>
                     </div>
                     <div class="form-group">
                         <label for="email">E-mail</label>
@@ -374,7 +378,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tipo">How can we help you?</label>
-                        <select id="tipo" name="tipo" required>
+                        <select id="tipo" name="interest" required>
                             <option value="" disabled selected>Select an option</option>
                             <option value="3D Concept (start with the 3D visuals)">3D Concept — start with the 3D visuals</option>
                             <option value="Pre-designed concept home">Pre-designed concept home</option>
@@ -385,15 +389,15 @@
                     <button type="submit" class="btn btn-gold btn-lg btn-block">
                         Request free quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
-                    <p class="form-note">On submit, we open your email app with the message ready to send. No spam.</p>
+                    <p class="form-note">On submit, the details go straight to our team — we reply within 24 business hours. No spam.</p>
                 </form>
                 <div class="form-success" id="formSuccess" hidden>
                     <span class="success-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
                     </span>
-                    <h3>Great first step!</h3>
-                    <p>We're opening your email app with the message ready. Just press <strong>send</strong> — and within 24 business hours you'll receive the quote for your concept.</p>
-                    <a href="mailto:contato@projetei.com" class="btn btn-gold btn-lg">Email us again</a>
+                    <h3>Thanks, we've got it!</h3>
+                    <p>Your request has been received straight to our team. We'll get back to you within 24 business hours — no obligation, no pressure.</p>
+                    <button type="button" class="btn btn-gold btn-lg" onclick="window.location.reload()">Send another request</button>
                 </div>
             </div>
         </div>
@@ -456,6 +460,6 @@
         </button>
     </div>
 
-    <script defer src="../js/landing.js?v=20261004"></script>
+    <script defer src="../js/landing.js?v=20261005"></script>
 </body>
 </html>

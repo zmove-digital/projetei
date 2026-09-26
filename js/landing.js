@@ -312,35 +312,36 @@
             if (!valid) return;
 
             var digits = whatsapp.value.replace(/\D/g, '');
-            var message;
-            if (EN_FORM) {
-                message = 'Hello! My name is ' + nome.value.trim() +
-                    ', and I would like a 3D concept to see my home in 3D.\n' +
-                    'Interest: ' + tipo.value + '\n' +
-                    'Email: ' + email.value.trim() + '\n' +
-                    'Phone: ' + digits;
-            } else {
-                message =
-                    'Olá! Me chamo ' + nome.value.trim() +
+            var message = EN_FORM
+                ? null
+                : 'Olá! Me chamo ' + nome.value.trim() +
                     ' e quero começar pelo anteprojeto para ver minha casa em 3D.\n' +
                     'Interesse: ' + tipo.value + '\n' +
                     'E-mail: ' + email.value.trim() + '\n' +
                     'WhatsApp: ' + digits +
                     '\n\nPodemos conversar?';
-            }
-
-            form.style.display = 'none';
-            success.hidden = false;
 
             fbq('track', 'Lead', { content_name: 'Formulário', value: 1.0, currency: 'BRL' });
             gtag('event', 'conversion', { 'send_to': 'AW-18371352320/GT-TNHW6WSW', 'value': 1.0, 'currency': 'BRL' });
 
             if (EN_FORM) {
-                window.location.href =
-                    'mailto:contato@projetei.com?subject=' +
-                    encodeURIComponent('Quote request from ' + nome.value.trim()) +
-                    '&body=' + encodeURIComponent(message);
+                var payload = new FormData(form);
+                fetch('https://formsubmit.co/ajax/contato@projetei.com', {
+                    method: 'POST',
+                    body: payload,
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .then(function (res) {
+                        if (!res.ok) throw new Error('FormSubmit error ' + res.status);
+                        form.style.display = 'none';
+                        success.hidden = false;
+                    })
+                    .catch(function () {
+                        alert('Sorry — something went wrong. Please email us directly at contato@projetei.com');
+                    });
             } else {
+                form.style.display = 'none';
+                success.hidden = false;
                 window.open(
                     'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message + sourceLine()),
                     '_blank',
