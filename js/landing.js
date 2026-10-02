@@ -393,79 +393,55 @@
     });
 })();
 
-/* ---------- Lightbox do catálogo (catalogo.html) ---------- */
+/* ---------- Galeria das páginas de projeto (projeto-*.html) ---------- */
 (function () {
-    var grid = document.getElementById('mstGrid');
-    if (!grid) return;
-    var lb = document.getElementById('mstLightbox');
-    var img = document.getElementById('mstLbImg');
-    var cta = document.getElementById('mstLbCta');
-    var btnClose = document.getElementById('mstLbClose');
-    var btnPrev = document.getElementById('mstLbPrev');
-    var btnNext = document.getElementById('mstLbNext');
-    if (!lb || !img || !cta) return;
-
-    var SHOT_BASE = 11;
-    var SHOT_COUNTS = { PROJ_F_BORGES: 10, PROJ_F_FLORES: 9, PROJ_F_PIRES: 7, PROJ_F_GARCIA: 7 };
-    var EN = (document.documentElement.getAttribute('lang') || '').toLowerCase() === 'en';
-    var BASE = EN ? '../' : '';
-    var curProject = '';
+    var gallery = document.getElementById('projectGallery');
+    if (!gallery) return;
+    var items = Array.prototype.slice.call(gallery.querySelectorAll('.project-gallery-item'));
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    if (!lightbox || !lightboxImg || !items.length) return;
+    var prev = document.getElementById('lightboxPrev');
+    var next = document.getElementById('lightboxNext');
+    var lightboxClose = document.getElementById('lightboxClose');
     var cur = 0;
 
-    function shotsFor(p) {
-        return SHOT_COUNTS[p] || 7;
+    function show() {
+        var it = items[cur];
+        lightboxImg.src = it.getAttribute('data-full');
+        lightboxImg.alt = it.getAttribute('data-alt') || '';
     }
 
-    function labelOf(p) {
-        var s = p.split('_').pop() || p;
-        return s.charAt(0) + s.slice(1).toLowerCase();
-    }
-
-    function showAt(i) {
-        cur = (i + shotsFor(curProject)) % shotsFor(curProject);
-        img.src = BASE + 'img/catalogo/' + curProject + ' (' + (SHOT_BASE + cur) + ').webp';
-        img.alt = EN ? ('Project ' + labelOf(curProject) + ' — catalog render by projetei.com') : ('Projeto ' + labelOf(curProject) + ' — render do catálogo projetei.com');
-    }
-
-    function open(p) {
-        curProject = p;
-        showAt(0);
-        var msg = EN ? ('Hello! I want the ' + labelOf(p) + ' project from the projetei.com catalog (AU$ 130).') : ('Oi! Quero o projeto ' + labelOf(p) + ' do catálogo da projetei.com (R$ 290).');
-        var href;
-        if (EN) {
-            href = 'mailto:contato@projetei.com?subject=' +
-                encodeURIComponent('I want the ' + labelOf(p) + ' project from the catalog') +
-                '&body=' + encodeURIComponent(msg);
-        } else {
-            href = 'https://wa.me/5551989923636?text=' + encodeURIComponent(msg);
-        }
-        cta.setAttribute('href', href);
-        lb.classList.add('open');
-        lb.setAttribute('aria-hidden', 'false');
-        cta.focus();
+    function open(i) {
+        cur = (i + items.length) % items.length;
+        show();
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
     }
 
     function close() {
-        lb.classList.remove('open');
-        lb.setAttribute('aria-hidden', 'true');
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
     }
 
-    grid.addEventListener('click', function (e) {
-        var cover = e.target && e.target.closest ? e.target.closest('.mst-cover') : null;
-        if (!cover) return;
-        open(cover.getAttribute('data-project'));
+    gallery.addEventListener('click', function (e) {
+        var btn = e.target && e.target.closest ? e.target.closest('.project-gallery-item') : null;
+        if (!btn) return;
+        open(items.indexOf(btn));
     });
-    btnClose.addEventListener('click', close);
-    btnPrev.addEventListener('click', function () { showAt(cur - 1); });
-    btnNext.addEventListener('click', function () { showAt(cur + 1); });
-    lb.addEventListener('click', function (e) {
-        if (e.target === lb) close();
+    if (prev) prev.addEventListener('click', function (e) { e.stopPropagation(); open(cur - 1); });
+    if (next) next.addEventListener('click', function (e) { e.stopPropagation(); open(cur + 1); });
+    if (lightboxClose) lightboxClose.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+    if (lightbox) lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) close();
     });
     document.addEventListener('keydown', function (e) {
-        if (!lb.classList.contains('open')) return;
-        if (e.key === 'Escape') close();
-        else if (e.key === 'ArrowLeft') showAt(cur - 1);
-        else if (e.key === 'ArrowRight') showAt(cur + 1);
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') { close(); return; }
+        if (e.key === 'ArrowLeft') open(cur - 1);
+        else if (e.key === 'ArrowRight') open(cur + 1);
     });
 })();
 
