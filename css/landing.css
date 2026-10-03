@@ -2226,6 +2226,29 @@ button {
     margin-top: 32px;
 }
 
+.proj-more {
+    text-align: center;
+}
+
+.proj-more-text {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.proj-more-text strong {
+    color: var(--gold-2);
+}
+
+.proj-more-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 24px;
+}
+
 .steps-list {
     display: grid;
     gap: 18px;
