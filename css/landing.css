@@ -2036,7 +2036,12 @@ button {
         width: 100%;
     }
     .hero-trust {
-        justify-content: center;
+        flex-direction: column;
+        align-items: stretch;
+        width: max-content;
+        max-width: 100%;
+        margin-inline: auto;
+        gap: 10px;
     }
 }
 
