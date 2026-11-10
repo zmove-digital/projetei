@@ -625,6 +625,126 @@ button {
     50% { transform: translateY(-9px); }
 }
 
+/* Faixa de etapas (marquee) */
+.steps-marquee {
+    position: relative;
+    background: var(--gold);
+    color: var(--navy);
+    overflow: hidden;
+    padding: 13px 0;
+}
+
+.steps-marquee::before,
+.steps-marquee::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 56px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.steps-marquee::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--gold), rgba(232, 163, 61, 0));
+}
+
+.steps-marquee::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--gold), rgba(232, 163, 61, 0));
+}
+
+.steps-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: steps-marquee-scroll 45s linear infinite;
+    will-change: transform;
+}
+
+.steps-marquee-list {
+    display: flex;
+    align-items: center;
+    flex: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.steps-marquee-list li {
+    display: inline-flex;
+    align-items: center;
+    padding-right: 26px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.steps-marquee-list li::after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    margin-left: 26px;
+    border-radius: 50%;
+    background: rgba(14, 29, 46, 0.45);
+    flex: none;
+}
+
+@keyframes steps-marquee-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (hover: hover) {
+    .steps-marquee:hover .steps-marquee-track {
+        animation-play-state: paused;
+    }
+}
+
+@media (max-width: 640px) {
+    .steps-marquee {
+        padding: 11px 0;
+    }
+
+    .steps-marquee::before,
+    .steps-marquee::after {
+        width: 36px;
+    }
+
+    .steps-marquee-track {
+        animation-duration: 32s;
+    }
+
+    .steps-marquee-list li {
+        padding-right: 18px;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+    }
+
+    .steps-marquee-list li::after {
+        width: 4px;
+        height: 4px;
+        margin-left: 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .steps-marquee {
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .steps-marquee::-webkit-scrollbar {
+        display: none;
+    }
+
+    .steps-marquee-track {
+        animation: none;
+    }
+}
+
 .stats-bar {
     background: var(--navy);
     padding: 40px 0;
