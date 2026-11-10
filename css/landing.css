@@ -2035,6 +2035,9 @@ button {
     .hero-actions .btn {
         width: 100%;
     }
+    .hero-trust {
+        justify-content: center;
+    }
 }
 
 .lightbox {
