@@ -463,3 +463,41 @@
         }
     });
 })();
+
+/* ---------- Faixa de etapas (jornada do anteprojeto à casa pronta) ----------
+   A trilha e o ponto correm em CSS (24s por volta). Aqui apenas acendemos,
+   a cada 4s, a etapa correspondente. */
+(function () {
+    var journey = document.querySelector('.journey');
+    if (!journey) return;
+
+    var steps = journey.querySelectorAll('.journey-step');
+    if (steps.length < 2) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var index = 0;
+    var timer = null;
+
+    function advance() {
+        steps[index].classList.remove('is-active');
+        index = (index + 1) % steps.length;
+        steps[index].classList.add('is-active');
+    }
+
+    function start() {
+        if (timer === null) timer = window.setInterval(advance, 4000);
+    }
+
+    function stop() {
+        if (timer !== null) {
+            window.clearInterval(timer);
+            timer = null;
+        }
+    }
+
+    start();
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stop(); else start();
+    });
+})();
