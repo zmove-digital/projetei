@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Financiamento Imobiliário | projetei.com</title>
+<meta name="description" content="Simule seu financiamento imobiliário, compare os métodos PRICE e SAC, veja parcelas, juros, saldo devedor e quanto você pode economizar.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://www.projetei.com/simulador/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="projetei.com">
+<meta property="og:title" content="Simulador de Financiamento Imobiliário | projetei.com">
+<meta property="og:description" content="Compare PRICE e SAC, simule parcelas, juros e o valor máximo de imóvel para a sua renda.">
+<meta property="og:url" content="https://www.projetei.com/simulador/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Simulador de Financiamento Imobiliário","applicationCategory":"FinanceApplication","operatingSystem":"Web","url":"https://www.projetei.com/simulador/","description":"Simule financiamento imobiliário e compare os métodos PRICE e SAC, com parcelas, juros, saldo devedor e limite por renda.","inLanguage":"pt-BR","publisher":{"@type":"Organization","name":"projetei.com","url":"https://www.projetei.com/"}}
+</script>
+<style>
+  :root{
+    --bg:#f6f8fb; --card:#ffffff; --fg:#1f2937; --muted:#6b7280;
+    --primary:#0b5ed7; --primary-2:#0a4fb3; --accent:#16a34a;
+    --border:#e5e7eb; --danger:#dc2626; --warn:#d97706;
+  }
+  body.dark{
+    --bg:#0f172a; --card:#1e293b; --fg:#e2e8f0; --muted:#94a3b8;
+    --primary:#3b82f6; --primary-2:#2563eb; --accent:#22c55e;
+    --border:#334155; --danger:#ef4444; --warn:#f59e0b;
+  }
+  body.dark input, body.dark select{background:#0f172a;color:var(--fg);border-color:var(--border)}
+  body.dark .kpi .box{background:#1e293b}
+  body.dark .table-wrap, body.dark table{background:var(--card)}
+  body.dark th{background:#334155}
+  body.dark tr:nth-child(even) td{background:#1a2332}
+  body.dark tfoot td{background:#1e3a5f}
+  body.dark canvas{background:#1e293b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5}
+  .wrap{max-width:1120px;margin:0 auto;padding:18px}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:10px;min-width:0}
+  .brand-logo{display:inline-flex;align-items:center;justify-content:center;background:#0f172a;border:1px solid #0f172a;border-radius:8px;padding:6px 11px;flex-shrink:0;text-decoration:none}
+  .brand-logo:hover{opacity:.85}
+  .brand-logo img{display:block;height:32px;width:auto;max-width:128px;object-fit:contain}
+  body.dark .brand-logo{background:#0b1220;border-color:var(--border)}
+  header h1{margin:0;font-size:1.45rem;color:var(--primary);line-height:1.25}
+  .badge-inline{font-size:.72em;color:inherit;font-weight:inherit;font-family:inherit;white-space:nowrap}
+  header .sub{color:var(--muted);font-size:.88rem}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  @media (max-width:880px){.grid{grid-template-columns:minmax(0,1fr)}}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.04);min-width:0}
+  .card h2{margin:0 0 12px;font-size:1.08rem;color:var(--primary)}
+  label{display:block;font-size:.83rem;font-weight:600;margin:10px 0 4px;color:#374151}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media (max-width:520px){.row{grid-template-columns:1fr}}
+  input,select{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:8px;font-size:.93rem;background:#fff}
+  input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(11,94,215,.12)}
+  .suffix{position:relative}
+  .suffix span{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.83rem;pointer-events:none}
+  .suffix input{padding-right:46px}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border:1px solid transparent;border-radius:8px;font-weight:600;cursor:pointer;font-size:.88rem;line-height:1.2;transition:background .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease,transform .12s ease}
+  .btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(11,94,215,.25)}
+  body.dark .btn:focus-visible{box-shadow:0 0 0 3px rgba(59,130,246,.35)}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+  .btn-primary:hover{background:var(--primary-2);border-color:var(--primary-2);box-shadow:0 2px 6px rgba(11,94,215,.25)}
+  .btn-primary:active{box-shadow:0 1px 2px rgba(0,0,0,.12)}
+  .btn-ghost{background:var(--card);color:var(--primary);border-color:var(--border)}
+  .btn-ghost:hover{background:var(--bg);border-color:var(--primary);color:var(--primary-2)}
+  .btn-sm{padding:6px 12px;font-size:.78rem;border-radius:6px}
+  body.dark .btn-ghost{background:var(--card);border-color:var(--border)}
+  body.dark .btn-ghost:hover{background:#334155;border-color:var(--primary)}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .kpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}
+  @media (max-width:640px){.kpi{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .kpi-break{display:none}
+  @media (max-width:640px){.kpi-break{display:block;grid-column:1/-1;height:16px}}
+  .kpi .box{background:#f9fafb;border:1px solid var(--border);border-radius:10px;padding:12px;cursor:pointer;position:relative;min-width:0}
+  .kpi .box .lbl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:flex;align-items:center;gap:4px}
+  .help{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:var(--primary);color:#fff;font-size:.65rem;font-weight:700;cursor:help;flex-shrink:0;margin-left:4px}
+  .tooltip{position:fixed;z-index:9999;max-width:260px;padding:10px 12px;background:#1e293b;color:#f1f5f9;font-size:.78rem;line-height:1.4;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.25);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .15s ease,transform .15s ease}
+  .tooltip.show{opacity:1;transform:translateY(0)}
+  body.dark .tooltip{background:#0f172a;border:1px solid var(--border)}
+  .kpi .box .lbl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+  .kpi .box .val{font-size:1.2rem;font-weight:700;color:var(--primary);margin-top:2px;overflow-wrap:anywhere}
+  .kpi .box .val.green{color:var(--accent)}
+  .kpi .box .val.warn{color:var(--warn)}
+  .tabs{display:flex;gap:6px;border-bottom:1px solid var(--border);margin:14px 0 10px}
+  .tab{padding:8px 14px;cursor:pointer;border-radius:8px 8px 0 0;font-weight:600;color:var(--muted);border:1px solid transparent;border-bottom:none;transition:color .15s ease,background .15s ease}
+  .tab:hover{color:var(--primary)}
+  .tab.active{color:var(--primary);background:var(--card);border-color:var(--border)}
+  .table-wrap{max-height:380px;overflow:auto;border:1px solid var(--border);border-radius:8px}
+  table{width:100%;border-collapse:collapse;font-size:.83rem}
+  th,td{padding:7px 9px;text-align:right;white-space:nowrap}
+  th{background:#f3f4f6;position:sticky;top:0;font-weight:600;color:#374151}
+  td:first-child,th:first-child{text-align:left}
+  tr:nth-child(even) td{background:#fafafa}
+  tfoot td{font-weight:700;background:#eef2ff}
+  .note{font-size:.76rem;color:var(--muted);margin-top:8px}
+  .col-notas{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;line-height:1.6}
+  .col-notas strong{color:var(--fg)}
+  .legenda{margin-top:12px;padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--bg)}
+  .legenda-titulo{font-size:.8rem;font-weight:700;color:var(--fg);margin-bottom:8px}
+  .legenda-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+  @media (max-width:640px){.legenda-grid{grid-template-columns:1fr}}
+  .legenda-item{display:flex;gap:8px;align-items:flex-start;font-size:.76rem;color:var(--muted)}
+  .legenda-item strong{color:var(--fg)}
+  .swatch{display:inline-block;width:12px;height:12px;border-radius:3px;flex-shrink:0;margin-top:3px}
+  .swatch.parcela{background:linear-gradient(90deg,rgba(11,94,215,.8) 50%,rgba(245,158,11,.9) 50%)}
+  .swatch.juros{background:rgba(245,158,11,.9)}
+  .swatch.amort{background:rgba(11,94,215,.8)}
+  .swatch.saldo{background:#16a34a;height:4px;border-radius:2px;margin-top:7px}
+  .alert{padding:10px 12px;border-radius:8px;font-size:.83rem;margin:10px 0}
+  .alert.warn{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
+  .alert.info{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
+  .alert.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+  canvas{width:100%;max-width:100%;height:250px;border:1px solid var(--border);border-radius:8px;background:#fff}
+  .footer{margin-top:16px;padding-top:12px;border-top:1px solid var(--border);font-size:.76rem;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .toggle{display:flex;align-items:center;gap:6px;font-size:.83rem;color:var(--muted);cursor:pointer;margin-top:6px}
+  .toggle input{width:auto}
+  .hidden{display:none}
+  .src-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .src-status{font-size:.76rem;color:var(--muted)}
+  .series-desc{font-size:.74rem;color:var(--muted);margin-top:4px}
+  @media (max-width:640px){
+    .wrap{padding:12px}
+    header{gap:8px}
+    .brand{width:100%;align-items:flex-start}
+    .brand-logo{padding:5px 9px;margin-top:1px}
+    .brand-logo img{height:26px;max-width:104px}
+    header h1{font-size:1.15rem}
+    header .sub{width:100%;font-size:.8rem}
+    #btnTema{width:100%;justify-content:center;margin-left:0}
+    .actions .btn,.src-row .btn{flex:1 1 auto;justify-content:center}
+    input,select{font-size:16px}
+    .kpi{gap:8px}
+    .kpi .box{padding:10px}
+    .kpi .box .val{font-size:1.05rem}
+    .table-wrap{max-height:320px}
+    table{font-size:.78rem}
+    th,td{padding:6px 7px}
+  }
+  @media (max-width:380px){
+    .kpi{grid-template-columns:1fr}
+  }
+  body.compact .wrap{padding:10px;max-width:100%}
+  body.compact .card{padding:12px}
+  body.compact header h1{font-size:1.15rem}
+  @media print{
+    .actions,.src-row,.toggle{display:none}
+    .card{box-shadow:none;border:1px solid #ccc}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <a class="brand-logo" href="/" aria-label="projetei.com — página inicial"><img src="logo.png" alt="projetei.com"></a>
+      <h1>Simulador de Financiamento Imobiliário <span class="badge-inline">(PRICE &amp; SAC)</span></h1>
+    </div>
+    <span class="sub">Estimativa de custos — valores sujeitos à análise de crédito. <a href="/" style="color:var(--primary);text-decoration:underline">Voltar ao site</a></span>
+    <button class="btn btn-ghost btn-sm" id="btnTema" style="margin-left:auto">🌙 Tema escuro</button>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Dados do financiamento</h2>
+
+      <label for="valorImovel">Valor do imóvel (R$)</label>
+      <div class="suffix"><input type="text" inputmode="numeric" id="valorImovel" value="500.000" min="0" step="1000"><span>R$</span></div>
+
+      <div class="row">
+        <div>
+          <label for="entradaTipo">Entrada</label>
+          <select id="entradaTipo">
+            <option value="pct">Percentual (%)</option>
+            <option value="val">Valor (R$)</option>
+          </select>
+        </div>
+        <div>
+          <label for="entrada">Valor da entrada</label>
+          <div class="suffix"><input type="text" inputmode="decimal" id="entrada" value="20" min="0" step="1"><span id="entradaSuf">%</span></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="prazo">Prazo (meses)</label>
+          <input type="number" id="prazo" value="360" min="1" max="420" step="1">
+        </div>
+        <div>
+          <label for="taxa">Taxa de juros (a.a. %)</label>
+          <div class="suffix"><input type="number" id="taxa" value="11.5" min="0" step="0.01"><span>%</span></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="indexador">Indexador</label>
+          <select id="indexador">
+            <option value="nenhum">Taxa fixa (sem indexador)</option>
+            <option value="tr">TR (Taxa Referencial)</option>
+            <option value="ipca">IPCA (apenas informativo)</option>
+          </select>
+        </div>
+        <div id="trWrap">
+          <label for="tr">TR mensal (%)</label>
+          <div class="suffix"><input type="number" id="tr" value="0.10" min="0" step="0.01"><span>%</span></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="renda">Renda bruta mensal (R$)</label>
+          <div class="suffix"><input type="text" inputmode="numeric" id="renda" value="0" min="0" step="100"><span>R$</span></div>
+        </div>
+        <div>
+          <label for="comprometimento">Comprometimento máximo (%)</label>
+          <div class="suffix"><input type="number" id="comprometimento" value="30" min="1" max="100" step="1"><span>%</span></div>
+        </div>
+      </div>
+      <div class="series-desc" id="rendaDesc">Limite de comprometimento de renda aplicado à 1ª parcela.</div>
+
+      <label class="toggle"><input type="checkbox" id="showAvancado"> Mostrar opções avançadas (seguros e tarifas)</label>
+      <div id="avancado" class="hidden">
+        <div class="row">
+          <div>
+            <label for="mip">Seguro MIP (% a.a. sobre saldo)</label>
+            <div class="suffix"><input type="number" id="mip" value="0.0" min="0" step="0.01"><span>%</span></div>
+          </div>
+          <div>
+            <label for="dfi">Seguro DFI (% a.a. sobre valor imóvel)</label>
+            <div class="suffix"><input type="number" id="dfi" value="0.0" min="0" step="0.01"><span>%</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="tarifa">Tarifa de avaliação (R$)</label>
+            <div class="suffix"><input type="text" inputmode="numeric" id="tarifa" value="0" min="0" step="50"><span>R$</span></div>
+          </div>
+          <div>
+            <label for="metodo">Método a exibir</label>
+            <select id="metodo">
+              <option value="ambos">Ambos (PRICE e SAC)</option>
+              <option value="price">Apenas PRICE</option>
+              <option value="sac">Apenas SAC</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <label for="serieBacen">Série BACEN (SGS)</label>
+        <select id="serieBacen">
+          <option value="25498">25498 — Taxa média mensal (imobiliário) (recomendada)</option>
+          <option value="25497">25497 — Taxa média mensal (alternativa)</option>
+          <option value="20739">20739 — Taxa média anualizada</option>
+          <option value="20745">20745 — Taxa média anualizada (alternativa)</option>
+        </select>
+        <div class="series-desc" id="seriesDesc">Busca a última taxa publicada e anualiza quando for mensal.</div>
+      </div>
+
+      <div class="src-row" style="margin-top:10px">
+        <button class="btn btn-ghost btn-sm" id="btnBacen">Atualizar taxa do BACEN</button>
+        <button class="btn btn-ghost btn-sm" id="btnCopiar">Copiar resumo</button>
+        <span class="src-status" id="srcStatus">Fonte: manual</span>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="btnCalcular">Calcular simulação</button>
+        <button class="btn btn-ghost" id="btnLimpar">Limpar</button>
+        <button class="btn btn-ghost" id="btnImprimir">Imprimir / PDF</button>
+      </div>
+
+      <div id="alertBox"></div>
+    </div>
+
+    <div class="card">
+      <h2>Resultados</h2>
+      <div id="resumo" class="kpi"></div>
+
+      <div class="tabs" id="tabs">
+        <div class="tab active" data-tab="price">PRICE</div>
+        <div class="tab" data-tab="sac">SAC</div>
+        <div class="tab" data-tab="grafico">Gráfico</div>
+      </div>
+
+      <div id="tab-price" class="tabcontent">
+        <div class="table-wrap"><table id="tblPrice"><thead><tr><th>Mês</th><th data-tip="Parcela: valor total pago no mês (amortização + juros + seguros/tarifas, quando informados).">Parcela<span class="help">?</span></th><th data-tip="Juros: custo do dinheiro emprestado, calculado sobre o saldo devedor de cada mês.">Juros<span class="help">?</span></th><th data-tip="Amortização: parte da parcela que quita o capital e reduz o saldo devedor.">Amortização<span class="help">?</span></th><th data-tip="Saldo devedor: valor ainda em dívida após o pagamento da parcela do mês.">Saldo devedor<span class="help">?</span></th></tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+        <div class="note col-notas"><strong>Colunas:</strong> <strong>Parcela</strong> = valor pago no mês (juros + amortização + seguros); <strong>Juros</strong> = custo do dinheiro emprestado sobre o saldo devedor; <strong>Amortização</strong> = parte que quita o capital; <strong>Saldo devedor</strong> = dívida restante após a parcela.</div>
+      </div>
+      <div id="tab-sac" class="tabcontent hidden">
+        <div class="table-wrap"><table id="tblSAC"><thead><tr><th>Mês</th><th data-tip="Parcela: valor total pago no mês (amortização + juros + seguros/tarifas, quando informados).">Parcela<span class="help">?</span></th><th data-tip="Juros: custo do dinheiro emprestado, calculado sobre o saldo devedor de cada mês.">Juros<span class="help">?</span></th><th data-tip="Amortização: parte da parcela que quita o capital e reduz o saldo devedor.">Amortização<span class="help">?</span></th><th data-tip="Saldo devedor: valor ainda em dívida após o pagamento da parcela do mês.">Saldo devedor<span class="help">?</span></th></tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+        <div class="note col-notas"><strong>Colunas:</strong> <strong>Parcela</strong> = valor pago no mês (juros + amortização + seguros); <strong>Juros</strong> = custo do dinheiro emprestado sobre o saldo devedor; <strong>Amortização</strong> = parte que quita o capital; <strong>Saldo devedor</strong> = dívida restante após a parcela.</div>
+      </div>
+      <div id="tab-grafico" class="tabcontent hidden">
+        <canvas id="chart" width="900" height="250"></canvas>
+        <div class="legenda">
+          <div class="legenda-titulo">Histórico mensal da amortização — legenda</div>
+          <div class="legenda-grid">
+            <div class="legenda-item"><span class="swatch parcela"></span><span><strong>Parcela:</strong> valor pago a cada mês. É a soma de juros + amortização (mais seguros/taxas, quando informados).</span></div>
+            <div class="legenda-item"><span class="swatch juros"></span><span><strong>Juros:</strong> custo do dinheiro emprestado, cobrado sobre o saldo devedor de cada mês.</span></div>
+            <div class="legenda-item"><span class="swatch amort"></span><span><strong>Amortização:</strong> parte da parcela que quita o capital e reduz o saldo devedor.</span></div>
+            <div class="legenda-item"><span class="swatch saldo"></span><span><strong>Saldo devedor:</strong> valor ainda em aberto do financiamento após cada pagamento (linha verde).</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="resumoExtra"></div>
+
+      <div class="footer">
+        <span>Simulador estimativo — sujeito à análise de crédito.</span>
+        <span>Atualizado: <span id="dtTaxa">—</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tooltip" class="tooltip"></div>
+<script>
+const $ = id => document.getElementById(id);
+// Formatação de moeda brasileira
+function parseMoeda(str){
+  if(str===null || str===undefined) return 0;
+  str = String(str).trim();
+  if(str==='') return 0;
+  str = str.replace(/\s/g,'');
+  if(str.indexOf(',')>-1){
+    // formato brasileiro: 1.234,56
+    str = str.replace(/\./g,'').replace(',', '.');
+  } else {
+    // sem vírgula: pode ser milhares (1.234) ou decimal (1234.56)
+    const parts = str.split('.');
+    if(parts.length>1 && parts[parts.length-1].length===3){
+      // separador de milhares
+      str = str.replace(/\./g,'');
+    }
+  }
+  const n = parseFloat(str);
+  return isFinite(n) ? n : 0;
+}
+function formatarMoeda(num){
+  if(!isFinite(num)) num = 0;
+  return num.toLocaleString('pt-BR',{minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function formatarPercentual(num){
+  if(!isFinite(num)) num = 0;
+  // campo de porcentagem: no máximo 2 casas após a vírgula, sem zeros à direita
+  let s = num.toFixed(2).replace(/0+$/,'').replace(/\.$/,'');
+  return s.replace('.', ',');
+}
+function normalizarEntradaPercentual(){
+  const el = $('entrada');
+  if($('entradaTipo').value!=='pct' || el.value.trim()==='') return;
+  const v = parseFloat(String(el.value).replace(',','.'));
+  if(isFinite(v)) el.value = formatarPercentual(v);
+}
+function aplicarMascaraMoeda(input){
+  // formata no blur: parseia e formata com separador de milhares
+  const v = parseMoeda(input.value);
+  if(v===0 && input.value.trim()!=='0' && input.value.trim()!==''){ /* keep */ }
+  input.value = formatarMoeda(v);
+}
+const fmt = v => (isFinite(v)? v : 0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const fmtN = (v,d=2) => (isFinite(v)? v : 0).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+let priceRows=[], sacRows=[], lastResumoText='';
+let autoAjustado=false, valorImovelOriginal=null, entradaOriginal=null, entradaTipoOriginal=null, autoAjusteDesabilitado=false, entradaInicial=null, entradaPrecisaPct=null;
+
+function getInputs(){
+  const valorImovel = parseMoeda($('valorImovel').value);
+  const entradaTipo = $('entradaTipo').value;
+  const entradaRawStr = $('entrada').value;
+  let entradaRaw;
+  if(entradaTipo==='pct'){
+    entradaRaw = parseFloat(String(entradaRawStr).replace(',','.')) || 0;
+    // ajuste automático: usa a precisão interna mesmo com 2 casas exibidas no campo
+    if(entradaPrecisaPct!==null) entradaRaw = entradaPrecisaPct;
+  } else {
+    entradaRaw = parseMoeda(entradaRawStr);
+  }
+  let entrada = entradaTipo==='pct' ? valorImovel*entradaRaw/100 : entradaRaw;
+  if(entrada<0) entrada=0;
+  if(entrada>valorImovel) entrada=valorImovel;
+  const pv = valorImovel - entrada;
+  const n = Math.max(1, parseInt($('prazo').value,10) || 1);
+  const taxaAA = parseFloat(String($('taxa').value).replace(',','.')) || 0;
+  const indexador = $('indexador').value;
+  const tr = parseFloat(String($('tr').value).replace(',','.')) || 0;
+  let i = Math.pow(1 + taxaAA/100, 1/12) - 1;
+  if(indexador==='tr'){
+    const trM = tr/100;
+    i = (1+i)*(1+trM) - 1;
+  }
+  const mip = (parseFloat(String($('mip').value).replace(',','.'))||0)/100/12;
+  const dfi = (parseFloat(String($('dfi').value).replace(',','.'))||0)/100/12;
+  const tarifa = parseMoeda($('tarifa').value);
+  const metodo = $('metodo').value;
+  const renda = parseMoeda($('renda').value);
+  const comprometimento = (parseFloat(String($('comprometimento').value).replace(',','.')) || 30)/100;
+  return {valorImovel,entrada,entradaRaw,entradaTipo,pv,n,taxaAA,i,tr,indexador,mip,dfi,tarifa,metodo,renda,comprometimento};
+}
+
+function amortizarPrice(pv,n,i,mip,dfi,valorImovel){
+  const rows=[]; let saldo=pv; let total=0; let jurosTot=0;
+  const pmt = i>0 ? pv * i / (1 - Math.pow(1+i,-n)) : pv/n;
+  for(let k=1;k<=n;k++){
+    const juros = saldo*i;
+    let amort = (k===n)? saldo : (pmt - juros);
+    const segMIP = saldo*mip;
+    const segDFI = valorImovel*dfi;
+    const parcela = amort + juros + segMIP + segDFI;
+    saldo = Math.max(0, saldo - amort);
+    total += parcela; jurosTot += juros + segMIP + segDFI;
+    rows.push({mes:k,parcela,juros:juros+segMIP+segDFI,amort,saldo});
+  }
+  return {rows,total,jurosTot,pmt};
+}
+function amortizarSAC(pv,n,i,mip,dfi,valorImovel){
+  const rows=[]; let saldo=pv; let total=0; let jurosTot=0;
+  const amortConst = pv/n;
+  for(let k=1;k<=n;k++){
+    const juros = saldo*i;
+    let amort = (k===n)? saldo : amortConst;
+    const segMIP = saldo*mip;
+    const segDFI = valorImovel*dfi;
+    const parcela = amort + juros + segMIP + segDFI;
+    saldo = Math.max(0, saldo - amort);
+    total += parcela; jurosTot += juros + segMIP + segDFI;
+    rows.push({mes:k,parcela,juros:juros+segMIP+segDFI,amort,saldo});
+  }
+  return {rows,total,jurosTot};
+}
+
+function calcular(){
+  const d = getInputs();
+  const alertBox = $('alertBox');
+  alertBox.innerHTML='';
+  if(d.valorImovel<=0){ alertBox.innerHTML='<div class="alert warn">Informe o valor do imóvel.</div>'; return; }
+  if(d.pv<=0){ alertBox.innerHTML='<div class="alert warn">A entrada não pode ser maior ou igual ao valor do imóvel.</div>'; return; }
+  const ltv = d.pv/d.valorImovel*100;
+  if(ltv>80){ alertBox.innerHTML += '<div class="alert warn">LTV acima de 80% — muitos programas exigem entrada mínima de 20%.</div>'; }
+  if(d.i<=0){ alertBox.innerHTML += '<div class="alert info">Taxa zero: amortização sem juros.</div>'; }
+
+  const pr = amortizarPrice(d.pv,d.n,d.i,d.mip,d.dfi,d.valorImovel);
+  const sc = amortizarSAC(d.pv,d.n,d.i,d.mip,d.dfi,d.valorImovel);
+  priceRows = pr.rows; sacRows = sc.rows;
+
+  const pricePrimeira = pr.rows[0].parcela;
+  const priceUltima = pr.rows[pr.rows.length-1].parcela;
+  const sacPrimeira = sc.rows[0].parcela;
+  const sacUltima = sc.rows[sc.rows.length-1].parcela;
+
+  // Comprometimento de renda
+  const limiteParcela = d.renda>0 ? d.renda*d.comprometimento : 0;
+  let pvMaxPrice = 0, pvMaxSAC = 0;
+  if(d.renda>0 && limiteParcela>0){
+    pvMaxPrice = d.i>0 ? limiteParcela * (1 - Math.pow(1+d.i,-d.n)) / d.i : limiteParcela*d.n;
+    pvMaxSAC = d.i>=0 ? limiteParcela / (d.i + 1/d.n) : 0;
+  }
+  const entradaPct = d.valorImovel>0 ? d.entrada/d.valorImovel : 0;
+  const conv = (pv) => (entradaPct>0 && entradaPct<1) ? pv/(1-entradaPct) : (pv + d.entrada);
+  const imovelMaxPrice = conv(pvMaxPrice);
+  const imovelMaxSAC = conv(pvMaxSAC);
+  const imovelMax = Math.min(imovelMaxPrice, imovelMaxSAC); // mais restritivo
+  const excedePrice = d.renda>0 && (d.metodo!=='sac') && pricePrimeira > limiteParcela + 0.5;
+  const excedeSAC = d.renda>0 && (d.metodo!=='price') && sacPrimeira > limiteParcela + 0.5;
+
+  // Auto-ajuste: manter o valor do imóvel e aumentar a entrada (prioridade);
+  // se impossível, diminuir o valor do imóvel (fallback).
+  if(d.renda>0 && (excedePrice||excedeSAC) && !autoAjustado && !autoAjusteDesabilitado){
+    const pvMax = (d.metodo==='price') ? pvMaxPrice : pvMaxSAC; // SAC é mais restritivo
+    const entradaNec = d.valorImovel - pvMax;
+    if(valorImovelOriginal===null) valorImovelOriginal = d.valorImovel;
+    if(entradaOriginal===null) entradaOriginal = d.entradaRaw;
+    if(entradaTipoOriginal===null) entradaTipoOriginal = d.entradaTipo;
+    autoAjustado = true;
+    if(entradaNec > d.entrada && entradaNec > 0 && entradaNec < d.valorImovel){
+      // aumentar a entrada mantendo o campo em percentual (2 casas) e a precisão interna
+      const pctNec = d.valorImovel>0 ? (entradaNec/d.valorImovel)*100 : d.entradaRaw;
+      entradaPrecisaPct = pctNec;
+      $('entradaTipo').value = 'pct';
+      $('entrada').value = formatarPercentual(pctNec);
+      $('entradaSuf').textContent = '%';
+      calcular();
+      return;
+    } else {
+      // fallback: diminuir o valor do imóvel
+      $('valorImovel').value = formatarMoeda(Math.round(imovelMax));
+      calcular();
+      return;
+    }
+  }
+
+  // Alerta de comprometimento (após definição das variáveis)
+  if(d.renda>0 && (excedePrice||excedeSAC)){
+    const metodos = [];
+    if(excedePrice) metodos.push('PRICE');
+    if(excedeSAC) metodos.push('SAC');
+    alertBox.innerHTML += `<div class="alert warn"><strong>Comprometimento de renda excedido</strong> (${metodos.join(' e ')}): a 1ª parcela supera ${fmtN(d.comprometimento*100,0)}% da renda bruta (${fmt(limiteParcela)}). `+
+      `Valor máximo de imóvel para essa renda: ${fmt(imovelMax)}. `+
+      `<button class="btn btn-ghost btn-sm" id="btnAjustarLimite" style="margin-left:6px">Ajustar valor do imóvel ao limite</button></div>`;
+  } else if(d.renda>0){
+    alertBox.innerHTML += `<div class="alert ok">Parcelas dentro do limite de ${fmtN(d.comprometimento*100,0)}% da renda bruta.</div>`;
+  }
+  if(autoAjustado && d.renda>0){
+    const entradaOrigVal = (entradaTipoOriginal==='pct') ? d.valorImovel*entradaOriginal/100 : entradaOriginal;
+    const entradaMudou = (entradaOriginal!==null && entradaOrigVal!==null && Math.abs(d.entrada - entradaOrigVal) > 0.5);
+    const valorMudou = (valorImovelOriginal!==null && Math.abs(d.valorImovel - valorImovelOriginal) > 0.5);
+    if(entradaMudou){
+      const entradaAtual = d.entrada;
+      alertBox.innerHTML += `<div class="alert info"><strong>Entrada ajustada automaticamente</strong> de ${fmt(entradaOrigVal)} para ${fmt(entradaAtual)} para manter o imóvel de ${fmt(d.valorImovel)} dentro da renda de ${fmt(d.renda)} (limite ${fmt(limiteParcela)}). `+
+        `<button class="btn btn-ghost btn-sm" id="btnRestaurarValor" style="margin-left:6px">Restaurar valores originais</button></div>`;
+    } else if(valorMudou){
+      alertBox.innerHTML += `<div class="alert info"><strong>Valor do imóvel ajustado automaticamente</strong> de ${fmt(valorImovelOriginal)} para ${fmt(d.valorImovel)} para caber na renda de ${fmt(d.renda)} (limite ${fmt(limiteParcela)}). `+
+        `<button class="btn btn-ghost btn-sm" id="btnRestaurarValor" style="margin-left:6px">Restaurar valor original</button></div>`;
+    }
+  }
+
+  let html = '';
+  html += `<div class="box"><div class="lbl">Valor financiado</div><div class="val">${fmt(d.pv)}</div></div>`;
+  html += `<div class="box"><div class="lbl">Entrada</div><div class="val green">${fmt(d.entrada)}</div></div>`;
+  html += `<div class="box"><div class="lbl">LTV</div><div class="val ${ltv>80?'warn':''}">${fmtN(ltv,1)}%</div></div>`;
+  if(d.renda>0){
+    html += `<div class="box" data-tip="Parcela máxima permitida pelo comprometimento de renda (${fmtN(d.comprometimento*100,0)}% da renda bruta)"><div class="lbl">Parcela máxima (${fmtN(d.comprometimento*100,0)}% da renda) <span class="help">?</span></div><div class="val green">${fmt(limiteParcela)}</div></div>`;
+    html += `<div class="box" data-tip="Valor máximo de imóvel financiável pelo método PRICE, mantendo a parcela dentro do limite de renda (considera taxa, prazo e entrada)"><div class="lbl">Valor máx. de imóvel (PRICE) <span class="help">?</span></div><div class="val">${fmt(imovelMaxPrice)}</div></div>`;
+    html += `<div class="box" data-tip="Valor máximo de imóvel financiável pelo método SAC, mantendo a parcela dentro do limite de renda (considera taxa, prazo e entrada)"><div class="lbl">Valor máx. de imóvel (SAC) <span class="help">?</span></div><div class="val">${fmt(imovelMaxSAC)}</div></div>`;
+    html += `<div class="kpi-break" aria-hidden="true"></div>`;
+  }
+  html += `<div class="box"><div class="lbl">PRICE — 1ª parcela</div><div class="val">${fmt(pricePrimeira)}</div></div>`;
+  html += `<div class="box"><div class="lbl">PRICE — última</div><div class="val">${fmt(priceUltima)}</div></div>`;
+  html += `<div class="box"><div class="lbl">PRICE — total pago</div><div class="val warn">${fmt(pr.total + d.tarifa)}</div></div>`;
+  html += `<div class="kpi-break" aria-hidden="true"></div>`;
+  html += `<div class="box"><div class="lbl">SAC — 1ª parcela</div><div class="val">${fmt(sacPrimeira)}</div></div>`;
+  html += `<div class="box"><div class="lbl">SAC — última</div><div class="val">${fmt(sacUltima)}</div></div>`;
+  html += `<div class="box"><div class="lbl">SAC — total pago</div><div class="val warn">${fmt(sc.total + d.tarifa)}</div></div>`;
+  $('resumo').innerHTML = html;
+
+  renderTable('tblPrice', pr.rows, pr.total);
+  renderTable('tblSAC', sc.rows, sc.total);
+
+  const m = d.metodo;
+  document.querySelector('[data-tab="price"]').style.display = (m==='sac')?'none':'';
+  document.querySelector('[data-tab="sac"]').style.display = (m==='price')?'none':'';
+  if(m==='price') activateTab('price');
+  else if(m==='sac') activateTab('sac');
+  else activateTab('price');
+
+  const economia = (pr.total - sc.total);
+  const cetPrice = (pr.total/d.pv - 1)*100; // simplificado
+  let extra = `<strong>Comparativo:</strong> diferença total (PRICE − SAC) = ${fmt(economia)}.<br>
+      Juros totais PRICE = ${fmt(pr.jurosTot)}; SAC = ${fmt(sc.jurosTot)}.<br>
+      Custo total PRICE ≈ ${fmtN(cetPrice,2)}% do valor financiado.${d.tarifa>0? ' Tarifa de avaliação: '+fmt(d.tarifa)+'.' : ''}`;
+  if(d.renda>0){
+    extra += `<br><strong>Comprometimento:</strong> limite ${fmt(limiteParcela)} (${fmtN(d.comprometimento*100,0)}% de ${fmt(d.renda)}). `+
+      `Parcela PRICE ${fmt(pricePrimeira)} ${excedePrice?'(ACIMA)':'(OK)'}; SAC ${fmt(sacPrimeira)} ${excedeSAC?'(ACIMA)':'(OK)'}.`;
+  }
+  $('resumoExtra').innerHTML = `<div class="alert info">${extra}</div>`;
+
+  desenharGrafico(d);
+  $('dtTaxa').textContent = new Date().toLocaleString('pt-BR');
+
+  lastResumoText = [
+    `Simulação de Financiamento Imobiliário`,
+    `Valor do imóvel: ${fmt(d.valorImovel)}`,
+    `Entrada: ${fmt(d.entrada)} (${fmtN(d.entrada/d.valorImovel*100,1)}%)`,
+    `Valor financiado: ${fmt(d.pv)}`,
+    `Prazo: ${d.n} meses`,
+    `Taxa: ${fmtN(d.taxaAA,2)}% a.a. (${fmtN(d.i*100,4)}% a.m.)`,
+    `Indexador: ${d.indexador}`,
+    d.renda>0 ? `Renda bruta: ${fmt(d.renda)} | Limite parcela (${fmtN(d.comprometimento*100,0)}%): ${fmt(limiteParcela)}` : '',
+    `PRICE — 1ª parcela: ${fmt(pricePrimeira)} | última: ${fmt(priceUltima)} | total: ${fmt(pr.total+d.tarifa)}`,
+    `SAC — 1ª parcela: ${fmt(sacPrimeira)} | última: ${fmt(sacUltima)} | total: ${fmt(sc.total+d.tarifa)}`,
+    `Diferença total (PRICE−SAC): ${fmt(economia)}`,
+  ].join('\n');
+
+  // persistir
+  try{ localStorage.setItem('simcef_last', JSON.stringify({
+    valorImovel:d.valorImovel, entradaTipo:d.entradaTipo, entrada:d.entradaRaw,
+    prazo:d.n, taxa:d.taxaAA, indexador:d.indexador, tr:d.tr, metodo:d.metodo,
+    renda:d.renda, comprometimento:d.comprometimento*100, tarifa:d.tarifa
+  })); }catch(e){}
+  sincronizarAltura();
+}
+
+// Avisa a página hospedeira (quando embedado via iframe) sobre a altura necessária
+function sincronizarAltura(){
+  try{
+    if(window.parent && window.parent!==window){
+      window.parent.postMessage({tipo:'simcef-altura', altura: document.documentElement.scrollHeight}, '*');
+    }
+  }catch(e){}
+}
+window.addEventListener('resize', sincronizarAltura);
+
+function renderTable(id, rows, total){
+  const tbody = document.querySelector('#'+id+' tbody');
+  const tfoot = document.querySelector('#'+id+' tfoot');
+  let view = rows;
+  if(rows.length>90){
+    view = rows.slice(0,24).concat([{mes:'…'}]).concat(rows.slice(-6));
+  }
+  tbody.innerHTML = view.map(r=>{
+    if(r.mes==='…') return '<tr><td colspan="5" style="text-align:center;color:#9ca3af">… parcelas intermediárias omitidas …</td></tr>';
+    return `<tr><td>${r.mes}</td><td>${fmt(r.parcela)}</td><td>${fmt(r.juros)}</td><td>${fmt(r.amort)}</td><td>${fmt(r.saldo)}</td></tr>`;
+  }).join('');
+  tfoot.innerHTML = `<tr><td colspan="5" style="text-align:right">Total pago: ${fmt(total)} (${rows.length} parcelas)</td></tr>`;
+}
+
+function activateTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
+  document.querySelectorAll('.tabcontent').forEach(c=>c.classList.toggle('hidden', !c.id.endsWith(name)));
+  sincronizarAltura();
+}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>activateTab(t.dataset.tab)));
+
+function desenharGrafico(d){
+  const canvas = $('chart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const dark = document.body.classList.contains('dark');
+  const corTexto = dark ? '#cbd5e1' : '#374151';
+  const corEixo  = dark ? '#334155' : '#e5e7eb';
+  const corFundo = dark ? '#94a3b8' : '#9ca3af';
+  ctx.clearRect(0,0,W,H);
+  const pad = {l:60,r:20,t:26,b:40};
+  const plotW = W-pad.l-pad.r, plotH = H-pad.t-pad.b;
+  const rows = (d.metodo==='sac')? sacRows : priceRows;
+  if(!rows.length) return;
+  const maxParcela = Math.max(...rows.map(r=>r.parcela));
+  const maxSaldo = Math.max(...rows.map(r=>r.saldo), d.pv);
+  const n = rows.length;
+  const barW = Math.max(2, plotW/n - 2);
+
+  // título do histórico
+  ctx.fillStyle = corTexto; ctx.font='11px sans-serif'; ctx.textAlign='left';
+  ctx.fillText('Histórico mensal — ' + (d.metodo==='sac' ? 'SAC' : 'PRICE'), pad.l, 14);
+
+  ctx.strokeStyle=corEixo; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y = pad.t + plotH*i/4;
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke();
+    ctx.fillStyle=corFundo; ctx.font='10px sans-serif'; ctx.textAlign='right';
+    ctx.fillText(fmtN(maxParcela*(1-i/4),0), pad.l-4, y+3);
+  }
+
+  // barras empilhadas: amortização (azul) + juros (laranja) = parcela
+  rows.forEach((r,k)=>{
+    const x = pad.l + (k/n)*plotW + 1;
+    const base = pad.t + plotH;
+    const hAmort = (r.amort/maxParcela)*plotH;
+    const hJuros = (r.juros/maxParcela)*plotH;
+    ctx.fillStyle = 'rgba(11,94,215,.8)';
+    ctx.fillRect(x, base-hAmort, barW, hAmort);
+    ctx.fillStyle = 'rgba(245,158,11,.9)';
+    ctx.fillRect(x, base-hAmort-hJuros, barW, hJuros);
+  });
+
+  // linha do saldo devedor
+  ctx.strokeStyle='#16a34a'; ctx.lineWidth=2;
+  ctx.beginPath();
+  rows.forEach((r,k)=>{
+    const x = pad.l + (k/n)*plotW + barW/2;
+    const y = pad.t + plotH - (r.saldo/maxSaldo)*plotH;
+    if(k===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+
+  // legenda dentro do gráfico
+  let lx = pad.l;
+  ctx.fillStyle='rgba(11,94,215,.8)'; ctx.fillRect(lx, H-22, 12,12);
+  ctx.fillStyle=corTexto; ctx.font='11px sans-serif'; ctx.textAlign='left';
+  ctx.fillText('Amortização', lx+18, H-12); lx += 110;
+  ctx.fillStyle='rgba(245,158,11,.9)'; ctx.fillRect(lx, H-22, 12,12);
+  ctx.fillStyle=corTexto; ctx.fillText('Juros', lx+18, H-12); lx += 72;
+  ctx.fillText('Parcela = Juros + Amortização', lx, H-12); lx += 205;
+  ctx.strokeStyle='#16a34a'; ctx.beginPath(); ctx.moveTo(lx,H-16); ctx.lineTo(lx+20,H-16); ctx.stroke();
+  ctx.fillText('Saldo devedor', lx+26, H-12);
+
+  ctx.fillStyle=corFundo; ctx.textAlign='center'; ctx.font='10px sans-serif';
+  const step = Math.ceil(n/8);
+  for(let k=0;k<n;k+=step){
+    const x = pad.l + (k/n)*plotW + barW/2;
+    ctx.fillText(rows[k].mes, x, H-26);
+  }
+}
+
+async function buscarBacen(){
+  const status = $('srcStatus');
+  const code = $('serieBacen').value;
+  status.textContent = 'Buscando BACEN…';
+  try{
+    const res = await fetch(`https://api.bcb.gov.br/dados/serie/bcdata.sgs.${code}/dados/ultimos/1?formato=json`);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    if(!Array.isArray(data) || !data.length) throw new Error('sem dados');
+    const v = parseFloat(data[0].valor);
+    let taxaAA;
+    // heurística: valor < 5 => mensal -> anualizar; senão anual
+    if(v < 5){ taxaAA = (Math.pow(1+v/100,12)-1)*100; }
+    else { taxaAA = v; }
+    $('taxa').value = taxaAA.toFixed(2);
+    status.textContent = `Fonte: BACEN SGS série ${code} (${data[0].data}) = ${v}%`;
+    $('dtTaxa').textContent = data[0].data;
+    $('alertBox').innerHTML = '<div class="alert ok">Taxa atualizada do BACEN com sucesso.</div>';
+  }catch(e){
+    status.textContent = 'Não foi possível acessar o BACEN (CORS/rede). Use a taxa manual.';
+    $('alertBox').innerHTML = '<div class="alert warn">Falha ao buscar BACEN: '+e.message+'. Use a taxa manual.</div>';
+  }
+}
+$('btnBacen').addEventListener('click', buscarBacen);
+
+$('entradaTipo').addEventListener('change', e=>{
+  $('entradaSuf').textContent = e.target.value==='pct' ? '%' : 'R$';
+});
+$('showAvancado').addEventListener('change', e=>{
+  $('avancado').classList.toggle('hidden', !e.target.checked);
+});
+
+$('btnCalcular').addEventListener('click', calcular);
+// Calcular ao pressionar Enter em qualquer campo (mesmo efeito do botão)
+function calcularNoEnter(e){
+  if((e.key !== 'Enter' && e.keyCode !== 13) || e.__simcefEnterHandled) return;
+  const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+  // botões/links já disparam a ação via clique do próprio navegador
+  if(tag === 'button' || tag === 'a') return;
+  e.__simcefEnterHandled = true;
+  e.preventDefault();
+  // Ao dar Enter, aplica a formatação (milhares com "." e decimais com ",")
+  aplicarMascaraNoEnter();
+  calcular();
+}
+function aplicarMascaraNoEnter(){
+  ['valorImovel','renda','tarifa'].forEach(id=>{
+    const el = $(id);
+    if(el && el.value.trim()!=='') aplicarMascaraMoeda(el);
+  });
+  const entrada = $('entrada');
+  if($('entradaTipo').value==='val' && entrada.value.trim()!==''){
+    aplicarMascaraMoeda(entrada);
+  }
+  normalizarEntradaPercentual();
+}
+// Direto nos campos + delegate no documento (cobre campos dinâmicos e foco fora deles)
+document.querySelectorAll('input, select, textarea').forEach(el=>{
+  el.addEventListener('keydown', calcularNoEnter);
+});
+document.addEventListener('keydown', calcularNoEnter);
+// Máscara de moeda nos inputs monetários (formata no blur)
+function mascararInput(input){
+  input.addEventListener('blur', ()=>{ if(input.value.trim()!=='') aplicarMascaraMoeda(input); });
+}
+mascararInput($('valorImovel'));
+mascararInput($('renda'));
+mascararInput($('tarifa'));
+// Entrada: formatação condicional
+$('entrada').addEventListener('blur', ()=>{
+  if($('entradaTipo').value==='val' && $('entrada').value.trim()!=='') aplicarMascaraMoeda($('entrada'));
+  else normalizarEntradaPercentual();
+});
+$('entradaTipo').addEventListener('change', e=>{
+  $('entradaSuf').textContent = e.target.value==='pct' ? '%' : 'R$';
+  if(e.target.value==='pct'){
+    const v = parseMoeda($('entrada').value);
+    $('entrada').value = formatarPercentual(v);
+    entradaPrecisaPct = null;
+  } else {
+    aplicarMascaraMoeda($('entrada'));
+  }
+});
+
+// Resetar auto-ajuste quando o usuário altera manualmente
+function resetAutoAjuste(){ autoAjustado=false; valorImovelOriginal=null; entradaOriginal=null; entradaTipoOriginal=null; autoAjusteDesabilitado=false; entradaPrecisaPct=null; }
+$('valorImovel').addEventListener('input', resetAutoAjuste);
+$('renda').addEventListener('input', ()=>{
+  // restaurar valor do imóvel ao original se foi auto-ajustado
+  if(valorImovelOriginal!==null){
+    $('valorImovel').value = formatarMoeda(valorImovelOriginal);
+  }
+  resetAutoAjuste();
+  // restaurar entrada para o mínimo padrão
+  if(entradaInicial!==null){
+    const vi = parseMoeda($('valorImovel').value);
+    const entradaMinVal = vi * entradaInicial / 100;
+    // se a entrada mínima é exatamente o % inicial, usar % para melhor UX
+    if(Math.abs(entradaMinVal - (vi * entradaInicial / 100)) < 0.01){
+      $('entradaTipo').value = 'pct';
+      $('entrada').value = formatarPercentual(entradaInicial);
+      $('entradaSuf').textContent = '%';
+    } else {
+      $('entradaTipo').value = 'val';
+      $('entrada').value = formatarMoeda(entradaMinVal);
+      $('entradaSuf').textContent = 'R$';
+    }
+  }
+  calcular();
+});
+$('comprometimento').addEventListener('input', resetAutoAjuste);
+$('prazo').addEventListener('input', resetAutoAjuste);
+$('taxa').addEventListener('input', resetAutoAjuste);
+$('entrada').addEventListener('input', resetAutoAjuste);
+// Indexador: recalcula automaticamente ao alterar (sem precisar clicar em "Calcular simulação")
+$('indexador').addEventListener('change', ()=>{ resetAutoAjuste(); calcular(); });
+$('btnLimpar').addEventListener('click', ()=>{
+  $('valorImovel').value=formatarMoeda(500000); $('entradaTipo').value='pct'; $('entrada').value=20;
+  $('prazo').value=360; $('taxa').value=11.5; $('indexador').value='nenhum';
+  $('tr').value=0.10; $('mip').value=0; $('dfi').value=0; $('tarifa').value=formatarMoeda(0);
+  $('metodo').value='ambos'; $('renda').value=formatarMoeda(0); $('comprometimento').value=30;
+  $('entradaSuf').textContent='%';
+  $('resumo').innerHTML=''; $('resumoExtra').innerHTML='';
+  document.querySelector('#tblPrice tbody').innerHTML=''; document.querySelector('#tblPrice tfoot').innerHTML='';
+  document.querySelector('#tblSAC tbody').innerHTML=''; document.querySelector('#tblSAC tfoot').innerHTML='';
+  $('alertBox').innerHTML='';
+});
+$('btnImprimir').addEventListener('click', ()=>window.print());
+$('btnCopiar').addEventListener('click', async ()=>{
+  try{ await navigator.clipboard.writeText(lastResumoText); $('alertBox').innerHTML='<div class="alert ok">Resumo copiado para a área de transferência.</div>'; }
+  catch(e){ $('alertBox').innerHTML='<div class="alert warn">Não foi possível copiar. Selecione o texto manualmente.</div>'; }
+});
+
+// Ajustar valor do imóvel ao limite de renda (delegação)
+document.addEventListener('click', e=>{
+  if(e.target && e.target.id==='btnRestaurarValor'){
+    if(valorImovelOriginal!==null || entradaOriginal!==null){
+      if(valorImovelOriginal!==null) $('valorImovel').value = formatarMoeda(valorImovelOriginal);
+      if(entradaOriginal!==null){
+        if(entradaTipoOriginal==='pct'){
+          $('entrada').value = formatarPercentual(entradaOriginal);
+        } else {
+          $('entrada').value = formatarMoeda(entradaOriginal);
+        }
+      }
+      if(entradaTipoOriginal!==null){ $('entradaTipo').value = entradaTipoOriginal; $('entradaSuf').textContent = entradaTipoOriginal==='pct' ? '%' : 'R$'; }
+      autoAjustado = false;
+      autoAjusteDesabilitado = true;
+      entradaPrecisaPct = null;
+      valorImovelOriginal = null;
+      entradaOriginal = null;
+      entradaTipoOriginal = null;
+      calcular();
+    }
+  }
+  if(e.target && e.target.id==='btnAjustarLimite'){
+    autoAjusteDesabilitado = false;
+    valorImovelOriginal = null;
+    autoAjustado = false;
+    const d = getInputs();
+    const limiteParcela = d.renda>0 ? d.renda*d.comprometimento : 0;
+    let pvMaxPrice = d.i>0 ? limiteParcela * (1 - Math.pow(1+d.i,-d.n)) / d.i : limiteParcela*d.n;
+    let pvMaxSAC = limiteParcela / (d.i + 1/d.n);
+    const entradaPct = d.valorImovel>0 ? d.entrada/d.valorImovel : 0;
+    const conv = (pv) => (entradaPct>0 && entradaPct<1) ? pv/(1-entradaPct) : (pv + d.entrada);
+    let imovelMax = Math.min(conv(pvMaxPrice), conv(pvMaxSAC));
+    if(d.metodo==='price') imovelMax = conv(pvMaxPrice);
+    else if(d.metodo==='sac') imovelMax = conv(pvMaxSAC);
+    if(imovelMax>0){
+      $('valorImovel').value = Math.round(imovelMax);
+      calcular();
+    }
+  }
+});
+
+// modo compacto
+if(new URLSearchParams(location.search).get('compact')==='1'){
+  document.body.classList.add('compact');
+}
+
+// restaurar última simulação
+try{
+  const last = JSON.parse(localStorage.getItem('simcef_last')||'null');
+  if(last){
+    $('valorImovel').value = formatarMoeda(last.valorImovel ?? 500000);
+    $('entradaTipo').value = last.entradaTipo ?? 'pct';
+    if((last.entradaTipo ?? 'pct')==='pct'){
+      $('entrada').value = formatarPercentual(last.entrada ?? 20);
+    } else {
+      $('entrada').value = formatarMoeda(last.entrada ?? 100000);
+    }
+    $('prazo').value = last.prazo ?? 360;
+    $('taxa').value = last.taxa ?? 11.5;
+    $('indexador').value = last.indexador ?? 'nenhum';
+    $('tr').value = last.tr ?? 0.10;
+    $('metodo').value = last.metodo ?? 'ambos';
+    $('renda').value = formatarMoeda(last.renda ?? 0);
+    $('comprometimento').value = last.comprometimento ?? 30;
+    $('tarifa').value = formatarMoeda(last.tarifa ?? 0);
+    $('entradaSuf').textContent = (last.entradaTipo==='pct')?'%':'R$';
+  }
+}catch(e){}
+
+// Tooltip customizado (clique)
+(function(){
+  const tip = document.getElementById('tooltip');
+  let hideTimer = null;
+  function show(text, x, y){
+    tip.textContent = text;
+    tip.classList.add('show');
+    // posicionar
+    const r = tip.getBoundingClientRect();
+    let left = x + 8;
+    let top = y + 8;
+    if(left + r.width > window.innerWidth - 8) left = x - r.width - 8;
+    if(top + r.height > window.innerHeight - 8) top = y - r.height - 8;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function hide(){ tip.classList.remove('show'); }
+  document.addEventListener('click', e=>{
+    const box = e.target.closest('[data-tip]');
+    if(box){
+      e.stopPropagation();
+      clearTimeout(hideTimer);
+      show(box.getAttribute('data-tip'), e.clientX, e.clientY);
+      hideTimer = setTimeout(hide, 4000);
+    } else {
+      hide();
+    }
+  });
+  document.addEventListener('mouseover', e=>{
+    const box = e.target.closest('[data-tip]');
+    if(box && e.target.classList.contains('help')){
+      show(box.getAttribute('data-tip'), e.clientX, e.clientY);
+    }
+  });
+  document.addEventListener('mouseout', e=>{
+    if(e.target.classList && e.target.classList.contains('help')){
+      hide();
+    }
+  });
+})();
+function aplicarTema(dark){
+  document.body.classList.toggle('dark', dark);
+  $('btnTema').textContent = dark ? '☀️ Tema claro' : '🌙 Tema escuro';
+  try{ localStorage.setItem('simcef_tema', dark?'dark':'light'); }catch(e){}
+}
+$('btnTema').addEventListener('click', ()=>{
+  aplicarTema(!document.body.classList.contains('dark'));
+  if(priceRows.length || sacRows.length) desenharGrafico(getInputs());
+});
+try{
+  const t = localStorage.getItem('simcef_tema');
+  const prefereEscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  aplicarTema(t ? t==='dark' : prefereEscuro);
+}catch(e){}
+
+// guardar entrada inicial (mínimo padrão)
+if(entradaInicial===null){
+  try{ entradaInicial = parseFloat(String($('entrada').value).replace(',','.')) || 20; }catch(e){ entradaInicial = 20; }
+}
+
+calcular();
+sincronizarAltura();
+</script>
+</body>
+</html>
