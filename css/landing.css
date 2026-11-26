@@ -821,6 +821,103 @@ button {
     color: rgba(244, 233, 212, 0.72);
 }
 
+/* Simulador de financiamento — faixa de destaque antes do catálogo */
+.simulator-cta {
+    background: linear-gradient(135deg, #f8cb83 0%, #eaa842 48%, #d98719 100%);
+    padding: 46px 0;
+    box-shadow: inset 0 -3px 0 rgba(14, 29, 46, 0.12);
+}
+
+.simulator-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.simulator-copy {
+    flex: 1 1 620px;
+    min-width: 0;
+}
+
+.simulator-tag {
+    color: #2a1a05;
+    background: rgba(14, 29, 46, 0.1);
+    border-color: rgba(14, 29, 46, 0.2);
+}
+
+.simulator-copy h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.7vw, 2rem);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    margin: 12px 0 0;
+}
+
+.simulator-pipe {
+    display: inline-block;
+    margin: 0 0.45em;
+    color: rgba(14, 29, 46, 0.35);
+    font-weight: 400;
+}
+
+.simulator-sub {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 1.5vw, 1.08rem);
+    font-weight: 600;
+    line-height: 1.45;
+    letter-spacing: 0;
+    color: rgba(14, 29, 46, 0.82);
+}
+
+.simulator-btn {
+    flex-shrink: 0;
+    background: var(--navy);
+    color: #fff;
+    box-shadow: 0 12px 28px rgba(14, 29, 46, 0.28);
+}
+
+.simulator-btn:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 18px 34px rgba(14, 29, 46, 0.36);
+}
+
+@media (max-width: 720px) {
+    .simulator-cta {
+        padding: 36px 0;
+        text-align: center;
+    }
+
+    .simulator-inner {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .simulator-copy h2 {
+        font-size: clamp(1.22rem, 5.4vw, 1.6rem);
+    }
+
+    .simulator-pipe {
+        display: block;
+        margin: 10px auto 0;
+    }
+
+    .simulator-sub {
+        font-size: 0.95rem;
+    }
+
+    .simulator-btn {
+        width: 100%;
+        max-width: 340px;
+    }
+}
+
 .compare {
     display: grid;
     grid-template-columns: 1fr 1fr;
