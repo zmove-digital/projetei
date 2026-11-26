@@ -119,6 +119,13 @@
   .alert.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
   canvas{width:100%;max-width:100%;height:250px;border:1px solid var(--border);border-radius:8px;background:#fff}
   .footer{margin-top:16px;padding-top:12px;border-top:1px solid var(--border);font-size:.76rem;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .site-footer{margin-top:36px;padding:28px 16px 8px;border-top:1px solid var(--border);text-align:center}
+  .site-footer a{display:inline-block;line-height:0;transition:opacity .2s ease}
+  .site-footer a:hover{opacity:.8}
+  .site-footer img{display:block;width:min(300px,70vw);height:auto;margin:0 auto}
+  .site-footer .logo-escuro{display:none}
+  body.dark .site-footer .logo-claro{display:none}
+  body.dark .site-footer .logo-escuro{display:block}
   .toggle{display:flex;align-items:center;gap:6px;font-size:.83rem;color:var(--muted);cursor:pointer;margin-top:6px}
   .toggle input{width:auto}
   .hidden{display:none}
@@ -319,6 +326,13 @@
     </div>
   </div>
 </div>
+
+<footer class="site-footer">
+  <a href="https://www.projetei.com/" aria-label="projetei.com — voltar à página inicial">
+    <img class="logo-claro" src="logo-footer.png" alt="projetei.com">
+    <img class="logo-escuro" src="logo-footer-white.png" alt="">
+  </a>
+</footer>
 
 <div id="tooltip" class="tooltip"></div>
 <script>
