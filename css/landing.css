@@ -216,7 +216,7 @@ button {
 .nav-inner {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     height: 108px;
 }
 
@@ -247,7 +247,7 @@ button {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 14px;
     margin-left: auto;
 }
 
@@ -255,6 +255,7 @@ button {
     font-weight: 600;
     font-size: 0.94rem;
     color: var(--slate);
+    white-space: nowrap;
     transition: color 0.2s ease;
 }
 
@@ -2044,7 +2045,7 @@ button {
     }
 }
 
-@media (max-width: 1140px) {
+@media (max-width: 1200px) {
     .nav-links {
         position: fixed;
         top: 0;
